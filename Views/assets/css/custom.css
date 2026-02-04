@@ -1,0 +1,193 @@
+/* ================================
+   Custom CSS para PowerZone
+   Tienda Deportiva Online
+   ================================ */
+
+/* Colores principales */
+:root {
+  --primary-color: #2ECC71;
+  --secondary-color: #1A1A1A;
+  --success-color: #2ECC71;
+  --danger-color: #dc3545;
+  --warning-color: #ffc107;
+  --info-color: #999999;
+  --dark-color: #000000;
+  --light-color: #ECECEC;
+}
+
+/* Efectos hover para cards */
+.hover-card {
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.hover-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Product cards */
+.product-card {
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15) !important;
+}
+
+.product-card .card-img-top {
+  transition: all 0.3s ease;
+}
+
+.product-card:hover .card-img-top {
+  transform: scale(1.05);
+}
+
+/* Botones personalizados */
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+  border: none;
+  transition: all 0.3s ease;
+  color: var(--dark-color);
+  font-weight: 600;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(46, 204, 113, 0.4);
+  background: linear-gradient(135deg, var(--secondary-color) 0%, var(--primary-color) 100%);
+  color: white;
+}
+
+.btn-outline-primary:hover {
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+  border-color: transparent;
+}
+
+/* Navbar personalizada */
+.navbar-light .navbar-nav .nav-link {
+  color: #1A1A1A !important;
+  font-weight: 600;
+}
+
+.navbar-light .navbar-nav .nav-link:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+.navbar-light .navbar-brand {
+  color: #1A1A1A !important;
+  font-weight: 700;
+}
+
+.navbar-light .dropdown-menu {
+  border: 2px solid #2ECC71;
+}
+
+/* Input groups con iconos */
+.input-group-text {
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+  color: white;
+  border: none;
+}
+
+.form-control:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 0.2rem rgba(46, 204, 113, 0.25);
+}
+
+/* Cards de login y registro */
+.card {
+  border: none;
+  border-radius: 15px;
+}
+
+.card-body {
+  border-radius: 15px;
+}
+
+/* Hero section */
+.hero-section {
+  min-height: 400px;
+}
+
+/* Badges personalizados */
+.badge {
+  padding: 0.4em 0.8em;
+  font-weight: 600;
+}
+
+/* Footer links */
+footer a:hover {
+  color: var(--primary-color) !important;
+  transition: all 0.3s ease;
+}
+
+/* Animaciones */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .display-4 {
+    font-size: 2rem;
+  }
+  
+  .hero-section {
+    min-height: 300px;
+  }
+  
+  .product-card .card-img-top {
+    height: 200px !important;
+  }
+}
+
+/* Scrollbar personalizado */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--light-color);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-color);
+}
+
+/* Utility classes */
+.bg-gradient-primary {
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+}
+
+.text-primary {
+  color: var(--primary-color) !important;
+}
+
+/* Loading spinner (opcional) */
+.spinner-border-custom {
+  width: 3rem;
+  height: 3rem;
+  border: 0.4em solid var(--primary-color);
+  border-right-color: transparent;
+}
