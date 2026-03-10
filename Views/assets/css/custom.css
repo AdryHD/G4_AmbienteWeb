@@ -47,23 +47,55 @@
 
 /* Botones personalizados */
 .btn-primary {
-  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-  border: none;
-  transition: all 0.3s ease;
-  color: var(--dark-color);
+  --bs-btn-color: #ffffff;
+  --bs-btn-bg: #000000;
+  --bs-btn-border-color: #000000;
+  --bs-btn-hover-color: #2ECC71;
+  --bs-btn-hover-bg: #000000;
+  --bs-btn-hover-border-color: #000000;
+  --bs-btn-active-color: #2ECC71;
+  --bs-btn-active-bg: #000000;
+  --bs-btn-active-border-color: #000000;
+  --bs-btn-focus-shadow-rgb: 0, 0, 0;
   font-weight: 600;
+  transition: all 0.3s ease;
 }
 
-.btn-primary:hover {
+.btn-primary:hover,
+.btn-primary:focus {
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(46, 204, 113, 0.4);
-  background: linear-gradient(135deg, var(--secondary-color) 0%, var(--primary-color) 100%);
-  color: white;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
-.btn-outline-primary:hover {
-  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-  border-color: transparent;
+.btn-outline-primary {
+  border-color: var(--primary-color) !important;
+  color: var(--primary-color) !important;
+  font-weight: 600 !important;
+  transition: all 0.3s ease !important;
+}
+
+.btn-outline-primary:hover,
+.btn-outline-primary:focus {
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%) !important;
+  border-color: transparent !important;
+  color: #ffffff !important;
+}
+
+/* Botones light personalizados */
+.btn-light {
+  background-color: #000000 !important;
+  border: none !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+  transition: all 0.3s ease !important;
+}
+
+.btn-light:hover,
+.btn-light:focus {
+  background-color: #000000 !important;
+  color: #2ECC71 !important;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3) !important;
+  border-color: #000000 !important;
 }
 
 /* Navbar personalizada */
