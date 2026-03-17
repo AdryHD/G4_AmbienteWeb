@@ -1,10 +1,42 @@
 <?php
 
 function MostrarNav(){
-echo
-'<nav class="navbar navbar-expand-lg navbar-light sticky-top shadow" style="background-color: #2ECC71;">
+    if (session_status() == PHP_SESSION_NONE) session_start();
+    $userName = $_SESSION['usuario_nombre'] ?? null;
+    $safeName = $userName ? htmlspecialchars($userName, ENT_QUOTES, 'UTF-8') : '';
+
+    // Rutas absolutas para que funcionen desde cualquier ubicación
+    $base = '/G4_AmbienteWeb';
+
+    $userMenu = $userName ? <<<HTML
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" data-bs-toggle="dropdown">
+                <i class="lni lni-user me-1"></i>{$safeName}
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li><a class="dropdown-item" href="{$base}/Views/Home/perfil.php"><i class="lni lni-user me-2"></i>Perfil</a></li>
+                <li><a class="dropdown-item" href="#"><i class="lni lni-package me-2"></i>Mis Pedidos</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="{$base}/Views/Home/logout.php"><i class="lni lni-exit me-2"></i>Cerrar Sesión</a></li>
+              </ul>
+            </li>
+HTML
+    : <<<HTML
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" data-bs-toggle="dropdown">
+                <i class="lni lni-user me-1"></i>Mi Cuenta
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li><a class="dropdown-item" href="{$base}/Views/Home/inicio.php"><i class="lni lni-enter me-2"></i>Ingresar</a></li>
+                <li><a class="dropdown-item" href="{$base}/Views/Home/registro.php"><i class="lni lni-user-plus me-2"></i>Registrarse</a></li>
+              </ul>
+            </li>
+HTML;
+
+    echo <<<HTML
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top shadow" style="background-color: #2ECC71;">
       <div class="container-fluid">
-        <a class="navbar-brand fw-bold" href="home.php">
+        <a class="navbar-brand fw-bold" href="{$base}/Views/Home/home.php">
           <i class="lni lni-sport-alt me-2"></i>PowerZone
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -26,21 +58,12 @@ echo
             <li class="nav-item">
               <a class="nav-link" href="#"><i class="lni lni-cart me-1"></i>Carrito <span class="badge bg-danger">0</span></a>
             </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" data-bs-toggle="dropdown">
-                <i class="lni lni-user me-1"></i>Mi Cuenta
-              </a>
-              <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item" href="#"><i class="lni lni-user me-2"></i>Perfil</a></li>
-                <li><a class="dropdown-item" href="#"><i class="lni lni-package me-2"></i>Mis Pedidos</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="inicio.php"><i class="lni lni-exit me-2"></i>Cerrar Sesión</a></li>
-              </ul>
-            </li>
+{$userMenu}
           </ul>
         </div>
       </div>
-    </nav>';
+    </nav>
+HTML;
 }
 
 function MostrarHeader(){

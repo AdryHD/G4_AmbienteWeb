@@ -22,16 +22,24 @@ if ($contrasenna !== $confirmar_contrasenna) {
     exit;
 }
 
-// TODO: Aquí se debería guardar el usuario en la base de datos
-// Por ahora, simplemente redirigimos al home
+// Hashear la contraseña antes de registrar
+$hashed = password_hash($contrasenna, PASSWORD_DEFAULT);
 
-// Crear sesión para el usuario
-session_start();
-$_SESSION['usuario_nombre'] = $nombre;
-$_SESSION['usuario_email'] = $email;
-$_SESSION['usuario_logueado'] = true;
+require_once __DIR__ . '/../../Models/Model.php';
 
-// Redirigir al home
-header("Location: home.php");
-exit;
+$result = RegistrarUsuario($nombre, $email, $hashed);
+
+if ($result === true) {
+    // Registro exitoso: iniciar sesión y redirigir
+    if (session_status() == PHP_SESSION_NONE) session_start();
+    $_SESSION['usuario_logueado'] = true;
+    $_SESSION['usuario_nombre'] = $nombre;
+    $_SESSION['usuario_email'] = $email;
+    header("Location: ../Home/home.php");
+    exit;
+} else {
+    // RegistrarUsuario devuelve mensaje de error en caso de fallo
+    header("Location: registro.php?error=" . urlencode($result));
+    exit;
+}
 ?>

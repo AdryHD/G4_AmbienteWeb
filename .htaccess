@@ -1,0 +1,9 @@
+# Auto-prepend auth check so all PHP requests require a session unless public
+<IfModule mod_php.c>
+    php_value auto_prepend_file "c:/xampp/htdocs/G4_AmbienteWeb/Views/auth_check.php"
+</IfModule>
+<IfModule mod_php7.c>
+    php_value auto_prepend_file "c:/xampp/htdocs/G4_AmbienteWeb/Views/auth_check.php"
+</IfModule>
+
+# If PHP runs as CGI/FastCGI you may need to set this in php.ini or vhost config instead.
