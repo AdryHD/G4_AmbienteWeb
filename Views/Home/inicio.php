@@ -22,6 +22,36 @@
               <div class="card shadow-sm">
                 <div class="card-body">
                   <h4 class="text-center mb-4">Inicio de Sesión</h4>
+                    <?php
+                    $error = $_GET['error'] ?? '';
+                    if ($error) {
+                      $msg = '';
+                      $type = 'danger';
+                      switch ($error) {
+                        case 'campos_vacios':
+                          $msg = 'Por favor complete todos los campos.';
+                          break;
+                        case 'credenciales_invalidas':
+                          $msg = 'Correo o contraseña incorrectos.';
+                          break;
+                        case 'no_encontrado':
+                          $msg = 'Usuario no encontrado.';
+                          $type = 'warning';
+                          break;
+                        case 'must_login':
+                          $msg = 'Debes iniciar sesión para acceder a esa página.';
+                          $type = 'info';
+                          break;
+                        case 'error_servidor':
+                          $msg = 'Error del servidor. Inténtalo más tarde.';
+                          break;
+                        default:
+                          $msg = 'Ocurrió un error. Inténtalo de nuevo.';
+                      }
+
+                      echo '<div class="alert alert-' . $type . ' alert-dismissible fade show" role="alert">' . htmlspecialchars($msg) . '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
+                    }
+                    ?>
                   <form action="procesar_login.php" method="POST">
                     <div class="mb-3">
                       <label for="email" class="form-label">Correo Electrónico</label>

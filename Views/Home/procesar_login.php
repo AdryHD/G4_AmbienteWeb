@@ -1,27 +1,48 @@
 <?php
-// Procesar inicio de sesión
+// Procesar inicio de sesión contra la base de datos
 
 // Obtener datos del formulario
-$email = $_POST['email'] ?? '';
+$email = trim($_POST['email'] ?? '');
 $contrasenna = $_POST['contrasenna'] ?? '';
 
 // Validación básica
 if (empty($email) || empty($contrasenna)) {
-    // Si hay campos vacíos, redirigir de vuelta al login
     header("Location: inicio.php?error=campos_vacios");
     exit;
 }
 
-// TODO: Aquí se debería validar el usuario contra la base de datos
-// Por ahora, aceptamos cualquier login
+require_once __DIR__ . '/../../Models/Model.php';
 
-// Crear sesión para el usuario
-session_start();
-$_SESSION['usuario_email'] = $email;
-$_SESSION['usuario_nombre'] = explode('@', $email)[0]; // Usar la parte antes del @ como nombre
-$_SESSION['usuario_logueado'] = true;
+$user = LoginUsuario($email);
+if ($user === false) {
+    header("Location: /G4_AmbienteWeb/Views/Home/inicio.php?error=error_servidor");
+    exit;
+}
 
-// Redirigir al home
-header("Location: home.php");
-exit;
+if ($user === null) {
+    header("Location: /G4_AmbienteWeb/Views/Home/inicio.php?error=no_encontrado");
+    exit;
+}
+
+$stored = $user['contrasena'];
+$password_ok = false;
+if (strpos($stored, '$2y$') === 0 || strpos($stored, '$2a$') === 0 || stripos($stored, 'argon2') !== false) {
+    if (password_verify($contrasenna, $stored)) $password_ok = true;
+} else {
+    if ($contrasenna === $stored) $password_ok = true;
+}
+
+if ($password_ok) {
+    if (session_status() == PHP_SESSION_NONE) session_start();
+    $_SESSION['usuario_logueado'] = true;
+    $_SESSION['usuario_id'] = $user['id_usuario'];
+    $_SESSION['usuario_nombre'] = $user['nombre'];
+    $_SESSION['usuario_email'] = $user['correo'];
+
+    header("Location: /G4_AmbienteWeb/Views/Home/home.php");
+    exit;
+} else {
+    header("Location: /G4_AmbienteWeb/Views/Home/inicio.php?error=credenciales_invalidas");
+    exit;
+}
 ?>

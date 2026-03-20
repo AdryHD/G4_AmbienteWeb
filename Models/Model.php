@@ -23,3 +23,43 @@ function RegistrarUsuario($Nombre, $Correo, $Contrasena)
         }
     }
 }
+
+/**
+ * LoginUsuario: llama a sp_Login y devuelve un arreglo asociativo con los datos
+ * Devuelve: array con keys (id_usuario,nombre,correo,contrasena,id_rol) si existe,
+ *           null si no existe,
+ *           false en caso de error.
+ */
+function LoginUsuario($Correo)
+{
+    $context = OpenDatabase();
+    try {
+        $stmt = $context->prepare("CALL sp_Login(?)");
+        $stmt->bind_param('s', $Correo);
+        $stmt->execute();
+
+        $stmt->bind_result($id_usuario, $nombre, $correo, $contrasena, $id_rol);
+        $fetched = $stmt->fetch();
+
+        if ($fetched) {
+            $user = [
+                'id_usuario' => $id_usuario,
+                'nombre' => $nombre,
+                'correo' => $correo,
+                'contrasena' => $contrasena,
+                'id_rol' => $id_rol,
+            ];
+            $stmt->close();
+            CloseDatabase($context);
+            return $user;
+        } else {
+            $stmt->close();
+            CloseDatabase($context);
+            return null;
+        }
+    } catch (Exception $e) {
+        if (isset($stmt) && $stmt) $stmt->close();
+        if (isset($context)) CloseDatabase($context);
+        return false;
+    }
+}
