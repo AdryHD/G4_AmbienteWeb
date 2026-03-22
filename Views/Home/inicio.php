@@ -23,6 +23,15 @@
                 <div class="card-body">
                   <h4 class="text-center mb-4">Inicio de Sesión</h4>
                     <?php
+                    // Mostrar mensajes de error/éxito desde $_SESSION
+                    if (session_status() == PHP_SESSION_NONE) session_start();
+                    if (!empty($_SESSION['mensaje'])) {
+                      $msg = $_SESSION['mensaje'];
+                      $type = $_SESSION['tipo_mensaje'] ?? 'info';
+                      echo '<div class="alert alert-' . $type . ' alert-dismissible fade show" role="alert">' . htmlspecialchars($msg) . '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
+                      unset($_SESSION['mensaje'], $_SESSION['tipo_mensaje']);
+                    }
+                    // También mostrar mensajes por GET (compatibilidad)
                     $error = $_GET['error'] ?? '';
                     if ($error) {
                       $msg = '';
@@ -48,7 +57,6 @@
                         default:
                           $msg = 'Ocurrió un error. Inténtalo de nuevo.';
                       }
-
                       echo '<div class="alert alert-' . $type . ' alert-dismissible fade show" role="alert">' . htmlspecialchars($msg) . '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
                     }
                     ?>
@@ -74,7 +82,7 @@
                       <label class="form-check-label" for="recordar">Recordar sesión</label>
                     </div>
                     <div class="d-grid">
-                      <button type="submit" class="btn btn-primary btn-lg"><i class="lni lni-enter me-2"></i>Ingresar</button>
+                      <button type="submit" name="btnIniciarSesion" class="btn btn-primary btn-lg"><i class="lni lni-enter me-2"></i>Ingresar</button>
                     </div>
                   </form>
                   <div class="text-center mt-3">
