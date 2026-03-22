@@ -60,7 +60,7 @@
                       echo '<div class="alert alert-' . $type . ' alert-dismissible fade show" role="alert">' . htmlspecialchars($msg) . '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
                     }
                     ?>
-                  <form action="../../Controllers/HomeController.php" method="POST">
+                  <form id="formLogin" action="../../Controllers/HomeController.php" method="POST" novalidate>
                     <div class="mb-3">
                       <label for="email" class="form-label">Correo Electrónico</label>
                       <div class="input-group">
@@ -68,6 +68,7 @@
                         <input type="email" class="form-control" id="email" name="email"
                           placeholder="correo@ejemplo.com" required>
                       </div>
+                      <div class="invalid-feedback">Ingrese un correo electrónico válido.</div>
                     </div>
                     <div class="mb-3">
                       <label for="contrasenna" class="form-label">Contraseña</label>
@@ -76,6 +77,7 @@
                         <input type="password" class="form-control" id="contrasenna" name="contrasenna"
                           placeholder="Ingrese su contraseña" required>
                       </div>
+                      <div class="invalid-feedback">Campo obligatorio.</div>
                     </div>
                     <div class="mb-3 form-check">
                       <input type="checkbox" class="form-check-input" id="recordar">
@@ -104,7 +106,9 @@
       </footer>
     </main>
 
+    <script src="../assets/jss/jquery-3.7.1.min.js"></script>
     <script src="../assets/jss/bootstrap.bundle.min.js"></script>
     <script src="../assets/jss/main.js"></script>
+    <script src="../funciones/login.js"></script>
   </body>
 </html>

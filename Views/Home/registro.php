@@ -35,13 +35,14 @@ MostrarCSS();
               <div class="card-body p-4">
                 <h4 class="text-center mb-4"><i class="lni lni-user me-2"></i>Registro de Usuario</h4>
 
-                <form id="formRegistro" action="../../Controllers/HomeController.php" method="POST">
+                <form id="formRegistro" action="../../Controllers/HomeController.php" method="POST" novalidate>
                   <div class="mb-3">
                     <label for="nombre" class="form-label">Nombre Completo</label>
                     <div class="input-group">
                       <span class="input-group-text"><i class="lni lni-user"></i></span>
                       <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Juan Pérez" required>
                     </div>
+                    <div class="invalid-feedback">Campo obligatorio.</div>
                   </div>
 
                   <div class="mb-3">
@@ -50,6 +51,7 @@ MostrarCSS();
                       <span class="input-group-text"><i class="lni lni-envelope"></i></span>
                       <input type="email" class="form-control" id="correo" name="correo" placeholder="correo@ejemplo.com" required>
                     </div>
+                    <div class="invalid-feedback">Ingrese un correo electrónico válido.</div>
                   </div>
 
                   <div class="mb-3">
@@ -58,6 +60,7 @@ MostrarCSS();
                       <span class="input-group-text"><i class="lni lni-lock"></i></span>
                       <input type="password" class="form-control" id="contrasena" name="contrasena" placeholder="Mínimo 6 caracteres" required minlength="6">
                     </div>
+                    <div class="invalid-feedback">Mínimo 6 caracteres.</div>
                   </div>
 
                   <div class="mb-3">
@@ -66,6 +69,7 @@ MostrarCSS();
                       <span class="input-group-text"><i class="lni lni-lock"></i></span>
                       <input type="password" class="form-control" id="confirmar_contrasena" name="confirmar_contrasena" placeholder="Repite tu contraseña" required minlength="6">
                     </div>
+                    <div class="invalid-feedback" id="error-confirmar">Las contraseñas no coinciden.</div>
                   </div>
 
                   <div class="mb-3 form-check">
@@ -73,6 +77,7 @@ MostrarCSS();
                     <label class="form-check-label" for="terminos">
                       Acepto los <a href="#" class="text-primary">términos y condiciones</a>
                     </label>
+                    <div class="invalid-feedback">Debes aceptar los términos.</div>
                   </div>
 
                   <div class="d-grid">
@@ -100,6 +105,6 @@ MostrarCSS();
   <?php
    MostrarJS();
    ?>
-   <script src="/G4_AMBIENTEWEB/Views/assets/validaciones.js"></script>
+   <script src="../funciones/registro.js"></script>
   </body>
 </html>

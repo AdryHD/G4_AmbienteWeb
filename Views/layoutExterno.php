@@ -55,8 +55,7 @@ echo
 
 function MostrarJS(){
 echo 
-'    <script src="../assets/jss/bootstrap.bundle.min.js"></script>
-     <script src="../assets/jss/main.js"></script>
-     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
- <script src="https://cdn.jsdelivr.net/jquery.validation/1.19.5/jquery.validate.min.js"></script>';
+'    <script src="../assets/jss/jquery-3.7.1.min.js"></script>
+     <script src="../assets/jss/bootstrap.bundle.min.js"></script>
+     <script src="../assets/jss/main.js"></script>';
 }
