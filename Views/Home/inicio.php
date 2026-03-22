@@ -52,7 +52,7 @@
                       echo '<div class="alert alert-' . $type . ' alert-dismissible fade show" role="alert">' . htmlspecialchars($msg) . '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
                     }
                     ?>
-                  <form action="procesar_login.php" method="POST">
+                  <form action="../../Controllers/HomeController.php" method="POST">
                     <div class="mb-3">
                       <label for="email" class="form-label">Correo Electrónico</label>
                       <div class="input-group">

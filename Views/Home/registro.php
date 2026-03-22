@@ -35,7 +35,7 @@ MostrarCSS();
               <div class="card-body p-4">
                 <h4 class="text-center mb-4"><i class="lni lni-user me-2"></i>Registro de Usuario</h4>
 
-                <form id="formRegistro" action="registro.php" method="POST">
+                <form id="formRegistro" action="../../Controllers/HomeController.php" method="POST">
                   <div class="mb-3">
                     <label for="nombre" class="form-label">Nombre Completo</label>
                     <div class="input-group">
