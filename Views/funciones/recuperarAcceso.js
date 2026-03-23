@@ -1,26 +1,15 @@
-$(function () {
+(function () {
+    'use strict';
 
-    $("#formRecuperarAcceso").validate({
-        rules: {
-            correo: {
-                required: true,
-                email: true
-            }
-        },
-        messages: {
-            correo: {
-                required: "Campo obligatorio",
-                email: "Formato incorrecto"
-            }
-        },
-        errorElement: "span",
-        errorClass: "text-danger",
-        highlight: function (element) {
-            $(element).addClass("is-invalid");
-        },
-        unhighlight: function (element) {
-            $(element).removeClass("is-invalid");
+    var form = document.getElementById('formRecuperarAcceso');
+    if (!form) return;
+
+    form.addEventListener('submit', function (event) {
+        if (!form.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
         }
+        form.classList.add('was-validated');
     });
 
-});
+})();

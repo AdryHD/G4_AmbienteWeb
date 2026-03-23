@@ -13,9 +13,7 @@ $uri = parse_url($uri, PHP_URL_PATH);
 $publicPrefixes = [
     '/G4_AmbienteWeb/Views/Home/inicio.php',
     '/G4_AmbienteWeb/Views/Home/registro.php',
-    '/G4_AmbienteWeb/Views/Home/procesar_login.php',
-    '/G4_AmbienteWeb/Views/Home/procesar_registro.php',
-    '/G4_AmbienteWeb/Views/Home/logout.php',
+    '/G4_AmbienteWeb/Views/Home/recuperarAcceso.php',
     '/G4_AmbienteWeb/index.php',
     '/G4_AmbienteWeb/Database.sql',
 ];
@@ -28,6 +26,7 @@ $publicContains = [
     '/assets/fonts/',
     '/assets/images/',
     '/favicon.ico',
+    '/Controllers/',
 ];
 
 $allowedExt = ['css','js','png','jpg','jpeg','gif','svg','ico','woff','woff2','ttf','map'];

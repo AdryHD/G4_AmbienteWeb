@@ -225,6 +225,7 @@ DROP TABLE IF EXISTS `usuarios`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `usuarios` (
   `id_usuario` int(11) NOT NULL AUTO_INCREMENT,
+  `cedula` varchar(20) DEFAULT NULL,
   `nombre` varchar(100) NOT NULL,
   `correo` varchar(100) NOT NULL,
   `contrasena` varchar(255) NOT NULL,
@@ -287,7 +288,8 @@ DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_Registrar`(
      pNombre VARCHAR(200),
      pCorreoElectronico VARCHAR(100),
-     pContrasenna VARCHAR(255)
+     pContrasenna VARCHAR(255),
+     pCedula VARCHAR(20)
 )
 BEGIN
     DECLARE vIdRol INT;
@@ -297,8 +299,8 @@ BEGIN
     WHERE nombre = 'cliente'
     LIMIT 1;
 
-    INSERT INTO usuarios(nombre, correo, contrasena, estado, id_rol)
-    VALUES (pNombre, pCorreoElectronico, pContrasenna, 1, vIdRol);
+    INSERT INTO usuarios(cedula, nombre, correo, contrasena, estado, id_rol)
+    VALUES (pCedula, pNombre, pCorreoElectronico, pContrasenna, 'activo', vIdRol);
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -314,13 +316,13 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_ConsultarUsuario`(
 )
 BEGIN
     SELECT  id_usuario,
+            cedula,
             nombre,
             correo,
             estado,
             id_rol
     FROM    usuarios
-    WHERE   id_usuario = pIdUsuario
-    AND     estado = 1;
+    WHERE   id_usuario = pIdUsuario;
 END ;;
 DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
@@ -355,12 +357,14 @@ DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_ActualizarPerfil`(
     pNombre VARCHAR(100),
     pCorreo VARCHAR(100),
+    pCedula VARCHAR(20),
     pIdUsuario INT
 )
 BEGIN
     UPDATE  usuarios
     SET     nombre = pNombre,
-            correo = pCorreo
+            correo = pCorreo,
+            cedula = pCedula
     WHERE   id_usuario = pIdUsuario;
 END ;;
 DELIMITER ;
@@ -381,6 +385,24 @@ BEGIN
 END ;;
 DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
+
+--
+-- Procedure: sp_ValidarCorreo
+--
+/*!50003 DROP PROCEDURE IF EXISTS `sp_ValidarCorreo` */;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_ValidarCorreo`(
+    pCorreo VARCHAR(100)
+)
+BEGIN
+    SELECT  id_usuario,
+            nombre,
+            correo
+    FROM    usuarios
+    WHERE   correo  = pCorreo
+    AND     estado  = 'activo';
+END ;;
+DELIMITER ;
 
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

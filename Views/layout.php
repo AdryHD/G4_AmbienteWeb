@@ -14,10 +14,11 @@ function MostrarNav(){
                 <i class="lni lni-user me-1"></i>{$safeName}
               </a>
               <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item" href="{$base}/Views/Home/perfil.php"><i class="lni lni-user me-2"></i>Perfil</a></li>
-                <li><a class="dropdown-item" href="#"><i class="lni lni-package me-2"></i>Mis Pedidos</a></li>
+                <li><a class="dropdown-item" href="{$base}/Views/Seguridad/cambiarPerfil.php"><i class="lni lni-user me-2"></i>Cambiar Perfil</a></li>
+                <li><a class="dropdown-item" href="{$base}/Views/Seguridad/cambiarAcceso.php"><i class="lni lni-lock me-2"></i>Cambiar Contraseña</a></li>
+                <li><a class="dropdown-item" href="{$base}/Views/Producto/consultarProductos.php"><i class="lni lni-shopping-basket me-2"></i>Productos</a></li>
                 <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="{$base}/Views/Home/logout.php"><i class="lni lni-exit me-2"></i>Cerrar Sesión</a></li>
+                <li><a class="dropdown-item" href="#" onclick="CerrarSesion(); return false;"><i class="lni lni-exit me-2"></i>Cerrar Sesión</a></li>
               </ul>
             </li>
 HTML
@@ -45,7 +46,7 @@ HTML;
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav me-auto">
             <li class="nav-item">
-              <a class="nav-link active" href="home.php"><i class="lni lni-home me-1"></i>Inicio</a>
+              <a class="nav-link active" href="{$base}/Views/Home/home.php"><i class="lni lni-home me-1"></i>Inicio</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#productos"><i class="lni lni-shopping-basket me-1"></i>Productos</a>
@@ -76,27 +77,27 @@ echo
       <div class="container">
         <div class="row">
           <div class="col-md-4 mb-3">
-            <h5 class="fw-bold"><i class="lni lni-sport-alt me-2"></i>PowerZone</h5>
-            <p class="text-muted">Tu tienda de confianza para equipamiento deportivo de alta calidad.</p>
+            <h5 class="fw-bold text-white"><i class="lni lni-sport-alt me-2"></i>PowerZone</h5>
+            <p class="text-white-50">Tu tienda de confianza para equipamiento deportivo de alta calidad.</p>
           </div>
           <div class="col-md-4 mb-3">
-            <h5 class="fw-bold">Enlaces Rápidos</h5>
+            <h5 class="fw-bold text-white">Enlaces Rápidos</h5>
             <ul class="list-unstyled">
-              <li><a href="#" class="text-muted text-decoration-none">Sobre Nosotros</a></li>
-              <li><a href="#" class="text-muted text-decoration-none">Política de Envío</a></li>
-              <li><a href="#" class="text-muted text-decoration-none">Términos y Condiciones</a></li>
+              <li><a href="#" class="text-white-50 text-decoration-none">Sobre Nosotros</a></li>
+              <li><a href="#" class="text-white-50 text-decoration-none">Política de Envío</a></li>
+              <li><a href="#" class="text-white-50 text-decoration-none">Términos y Condiciones</a></li>
             </ul>
           </div>
           <div class="col-md-4 mb-3">
-            <h5 class="fw-bold">Contacto</h5>
-            <p class="text-muted mb-1"><i class="lni lni-phone me-2"></i>+506 1234-5678</p>
-            <p class="text-muted mb-1"><i class="lni lni-envelope me-2"></i>info@sportzone.com</p>
-            <p class="text-muted"><i class="lni lni-map-marker me-2"></i>San José, Costa Rica</p>
+            <h5 class="fw-bold text-white">Contacto</h5>
+            <p class="text-white-50 mb-1"><i class="lni lni-phone me-2"></i>+506 1234-5678</p>
+            <p class="text-white-50 mb-1"><i class="lni lni-envelope me-2"></i>info@sportzone.com</p>
+            <p class="text-white-50"><i class="lni lni-map-marker me-2"></i>San José, Costa Rica</p>
           </div>
         </div>
         <hr class="border-secondary">
         <div class="text-center">
-          <p class="mb-0 text-muted">&copy; 2026 PowerZone. Todos los derechos reservados.</p>
+          <p class="mb-0 text-white-50">&copy; 2026 PowerZone. Todos los derechos reservados.</p>
         </div>
       </div>
     </footer>';
@@ -123,5 +124,6 @@ function MostrarJS(){
 echo 
 '    <script src="../assets/jss/jquery-3.7.1.min.js"></script>
      <script src="../assets/jss/bootstrap.bundle.min.js"></script>
-     <script src="../assets/jss/main.js"></script>';
+     <script src="../assets/jss/main.js"></script>
+     <script src="../funciones/cerrarSesion.js"></script>';
 }

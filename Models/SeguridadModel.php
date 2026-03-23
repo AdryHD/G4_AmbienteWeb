@@ -25,13 +25,14 @@ function ConsultarUsuarioModel($id_usuario)
     }
 }
 
-function ActualizarPerfilModel($nombre, $correo, $id_usuario)
+function ActualizarPerfilModel($nombre, $correo, $cedula, $id_usuario)
 {
     try
     {
         $context = OpenDatabase();
 
-        $sp = "CALL sp_ActualizarPerfil('$nombre', '$correo', '$id_usuario')";
+        $sp = "CALL sp_ActualizarPerfil('$nombre', '$correo', '$cedula', '$id_usuario')";
+
         $result = $context->query($sp);
 
         CloseDatabase($context);

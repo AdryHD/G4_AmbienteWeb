@@ -1,69 +1,84 @@
 <?php
-// HomeController.php — Sintaxis y estructura tipo MN_ECC
+include_once $_SERVER["DOCUMENT_ROOT"] . "/G4_AmbienteWeb/Controllers/UtilitarioController.php";
 include_once $_SERVER["DOCUMENT_ROOT"] . "/G4_AmbienteWeb/Models/HomeModel.php";
+include_once $_SERVER["DOCUMENT_ROOT"] . "/G4_AmbienteWeb/Models/SeguridadModel.php";
 
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['btnRegistrar'])) {
-        // Registro de usuario
-        $nombre = trim($_POST['nombre'] ?? '');
-        $correo = trim($_POST['correo'] ?? '');
-        $contrasena = $_POST['contrasena'] ?? '';
-        $result = RegistrarModel($nombre, $correo, $contrasena);
-        if ($result === true) {
-            $_SESSION['mensaje'] = 'Usuario registrado correctamente.';
-            $_SESSION['tipo_mensaje'] = 'success';
-            header('Location: ../Views/Home/inicio.php');
-            exit;
-        } else {
-            $_SESSION['mensaje'] = $result;
-            $_SESSION['tipo_mensaje'] = 'danger';
-            header('Location: ../Views/Home/registro.php');
-            exit;
-        }
-    }
-    if (isset($_POST['btnIniciarSesion'])) {
-        // Inicio de sesión
-        $correo = trim($_POST['email'] ?? '');
-        $contrasena = $_POST['contrasenna'] ?? $_POST['contrasena'] ?? '';
-        $user = IniciarSesionModel($correo);
-        if ($user === false) {
-            $_SESSION['mensaje'] = 'Error del servidor. Inténtalo más tarde.';
-            $_SESSION['tipo_mensaje'] = 'danger';
-            header('Location: ../Views/Home/inicio.php');
-            exit;
-        }
-        if ($user === null) {
-            $_SESSION['mensaje'] = 'Usuario no encontrado.';
-            $_SESSION['tipo_mensaje'] = 'warning';
-            header('Location: ../Views/Home/inicio.php');
-            exit;
-        }
-        $stored = $user['contrasena'];
-        $password_ok = ($contrasena === $stored);
-        if ($password_ok) {
-            $_SESSION['usuario_logueado'] = true;
-            $_SESSION['usuario_id'] = $user['id_usuario'];
-            $_SESSION['usuario_nombre'] = $user['nombre'];
-            $_SESSION['usuario_email'] = $user['correo'];
-            header('Location: ../Views/Home/home.php');
-            exit;
-        } else {
-            $_SESSION['mensaje'] = 'Correo o contraseña incorrectos.';
-            $_SESSION['tipo_mensaje'] = 'danger';
-            header('Location: ../Views/Home/inicio.php');
-            exit;
-        }
-    }
-    if (isset($_POST['btnCerrarSesion'])) {
-        // Cerrar sesión
-        session_unset();
-        session_destroy();
-        header('Location: ../Views/Home/inicio.php');
+if (isset($_POST["btnRegistrar"])) {
+
+    $identificacion    = $_POST["Identificacion"];
+    $nombre            = $_POST["Nombre"];
+    $correoElectronico = $_POST["CorreoElectronico"];
+    $contrasenna       = $_POST["Contrasenna"];
+
+    $result = RegistrarModel($identificacion, $nombre, $contrasenna, $correoElectronico);
+
+    if ($result) {
+        $_SESSION["mensaje"]      = "Usuario registrado correctamente.";
+        $_SESSION["tipo_mensaje"] = "success";
+        header("Location: /G4_AmbienteWeb/Views/Home/inicio.php");
         exit;
+    } else {
+        $_POST["Mensaje"]     = "Su información no fue registrada correctamente.";
+        $_POST["TipoMensaje"] = "danger";
     }
 }
-// Si no es POST, redirigir a inicio
-header('Location: ../Views/Home/inicio.php');
-exit;
+
+if (isset($_POST["btnIniciarSesion"])) {
+
+    $correoElectronico = $_POST["CorreoElectronico"];
+    $contrasenna       = $_POST["Contrasenna"];
+
+    $result = IniciarSesionModel($correoElectronico, $contrasenna);
+
+    if ($result) {
+        $_SESSION["usuario_logueado"] = true;
+        $_SESSION["usuario_id"]       = $result["id_usuario"];
+        $_SESSION["usuario_nombre"]   = $result["nombre"];
+        $_SESSION["usuario_email"]    = $result["correo"];
+        header("Location: /G4_AmbienteWeb/Views/Home/home.php");
+        exit;
+    } else {
+        $_POST["Mensaje"]     = "Su información no fue autenticada correctamente.";
+        $_POST["TipoMensaje"] = "danger";
+    }
+}
+
+if (isset($_POST["btnRecuperarAcceso"])) {
+
+    $correo = $_POST["CorreoElectronico"];
+
+    $result = ValidarCorreoModel($correo);
+
+    if ($result) {
+
+        $nuevaContrasena = GenerarContrasena();
+        $actualizacion   = ActualizarContrasenaModel($nuevaContrasena, $result["id_usuario"]);
+
+        if ($actualizacion) {
+
+            $plantilla    = file_get_contents($_SERVER["DOCUMENT_ROOT"] . "/G4_AmbienteWeb/Views/emails/recuperarAcceso.html");
+            $cuerpoCorreo = str_replace(
+                ["{{NOMBRE}}", "{{CONTRASENA}}"],
+                [$result["nombre"], $nuevaContrasena],
+                $plantilla
+            );
+
+            EnviarCorreo("Recuperar Acceso - PowerZone", $cuerpoCorreo, $result["correo"]);
+
+            header("Location: /G4_AmbienteWeb/Views/Home/inicio.php");
+            exit;
+        }
+    }
+
+    $_POST["Mensaje"] = "El correo ingresado no está registrado.";
+}
+
+if (isset($_POST["btnCerrarSesion"])) {
+    session_unset();
+    session_destroy();
+    echo json_encode("OK");
+}

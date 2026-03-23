@@ -1,3 +1,18 @@
+<?php
+// Al llegar al login siempre se cierra la sesión activa,
+// pero se preservan los mensajes flash del controlador.
+if (session_status() == PHP_SESSION_NONE) session_start();
+$_flashMsg  = $_SESSION['mensaje']      ?? '';
+$_flashType = $_SESSION['tipo_mensaje'] ?? 'info';
+session_unset();
+session_destroy();
+session_start();
+if ($_flashMsg) {
+    $_SESSION['mensaje']      = $_flashMsg;
+    $_SESSION['tipo_mensaje'] = $_flashType;
+}
+include_once $_SERVER["DOCUMENT_ROOT"] . "/G4_AmbienteWeb/Controllers/HomeController.php";
+?>
 <!DOCTYPE html>
 <html lang="es">
   <head>
@@ -60,21 +75,27 @@
                       echo '<div class="alert alert-' . $type . ' alert-dismissible fade show" role="alert">' . htmlspecialchars($msg) . '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
                     }
                     ?>
-                  <form id="formLogin" action="../../Controllers/HomeController.php" method="POST" novalidate>
+                  <?php if (isset($_POST["Mensaje"])): ?>
+                    <div class="alert alert-<?php echo htmlspecialchars($_POST["TipoMensaje"] ?? 'danger'); ?> alert-dismissible fade show" role="alert">
+                      <?php echo htmlspecialchars($_POST["Mensaje"]); ?>
+                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                  <?php endif; ?>
+                  <form id="formLogin" action="" method="POST" novalidate>
                     <div class="mb-3">
-                      <label for="email" class="form-label">Correo Electrónico</label>
+                      <label for="CorreoElectronico" class="form-label">Correo Electrónico</label>
                       <div class="input-group">
                         <span class="input-group-text"><i class="lni lni-envelope"></i></span>
-                        <input type="email" class="form-control" id="email" name="email"
+                        <input type="email" class="form-control" id="CorreoElectronico" name="CorreoElectronico"
                           placeholder="correo@ejemplo.com" required>
                       </div>
                       <div class="invalid-feedback">Ingrese un correo electrónico válido.</div>
                     </div>
                     <div class="mb-3">
-                      <label for="contrasenna" class="form-label">Contraseña</label>
+                      <label for="Contrasenna" class="form-label">Contraseña</label>
                       <div class="input-group">
                         <span class="input-group-text"><i class="lni lni-lock"></i></span>
-                        <input type="password" class="form-control" id="contrasenna" name="contrasenna"
+                        <input type="password" class="form-control" id="Contrasenna" name="Contrasenna"
                           placeholder="Ingrese su contraseña" required>
                       </div>
                       <div class="invalid-feedback">Campo obligatorio.</div>
@@ -88,7 +109,8 @@
                     </div>
                   </form>
                   <div class="text-center mt-3">
-                    <p class="mb-0">¿No tienes cuenta? <a href="registro.php" class="text-primary fw-bold">Regístrate aquí</a></p>
+                    <p class="mb-1">¿No tienes cuenta? <a href="registro.php" class="text-primary fw-bold">Regístrate aquí</a></p>
+                    <p class="mb-0"><a href="recuperarAcceso.php" class="text-muted small">¿Olvidaste tu contraseña?</a></p>
                   </div>
                 </div>
               </div>

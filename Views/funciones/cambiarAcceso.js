@@ -1,39 +1,31 @@
-$(function () {
+(function () {
+    'use strict';
 
-    $.validator.addMethod("sinEspacios", function (value) {
-        return !/\s/.test(value);
-    }, "La contraseña no debe contener espacios");
+    var form = document.getElementById('formCambiarAcceso');
+    if (!form) return;
 
-    $("#formCambiarAcceso").validate({
-        rules: {
-            NuevaContrasena: {
-                required: true,
-                minlength: 6,
-                sinEspacios: true
-            },
-            ConfirmarContrasena: {
-                required: true,
-                equalTo: "#NuevaContrasena"
-            }
-        },
-        messages: {
-            NuevaContrasena: {
-                required: "Campo obligatorio",
-                minlength: "Mínimo 6 caracteres"
-            },
-            ConfirmarContrasena: {
-                required: "Campo obligatorio",
-                equalTo: "Las contraseñas no coinciden"
-            }
-        },
-        errorElement: "span",
-        errorClass: "text-danger",
-        highlight: function (element) {
-            $(element).addClass("is-invalid");
-        },
-        unhighlight: function (element) {
-            $(element).removeClass("is-invalid");
+    form.addEventListener('submit', function (event) {
+        var nueva      = document.getElementById('NuevaContrasena');
+        var confirmar  = document.getElementById('ConfirmarContrasena');
+
+        // Validar coincidencia de contraseñas
+        if (nueva.value !== confirmar.value) {
+            confirmar.setCustomValidity('Las contraseñas no coinciden.');
+        } else {
+            confirmar.setCustomValidity('');
         }
+
+        if (!form.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+
+        form.classList.add('was-validated');
     });
 
-});
+    // Limpiar validación personalizada al escribir
+    document.getElementById('ConfirmarContrasena').addEventListener('input', function () {
+        this.setCustomValidity('');
+    });
+
+})();

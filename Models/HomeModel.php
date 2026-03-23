@@ -1,42 +1,72 @@
 <?php
 include_once $_SERVER["DOCUMENT_ROOT"] . "/G4_AmbienteWeb/Models/UtilitarioModel.php";
 
-function RegistrarModel($nombre, $correo, $contrasena)
+function RegistrarModel($identificacion, $nombre, $contrasenna, $correoElectronico)
 {
-    $context = OpenDatabase();
-    try {
-        $stmt = $context->prepare("CALL sp_Registrar(?, ?, ?)");
-        $stmt->bind_param('sss', $nombre, $correo, $contrasena);
-        $stmt->execute();
-        $stmt->close();
+    try
+    {
+        $context = OpenDatabase();
+
+        $sp = "CALL sp_Registrar('$nombre', '$correoElectronico', '$contrasenna', '$identificacion')";
+        $result = $context->query($sp);
+
         CloseDatabase($context);
-        return true;
-    } catch (mysqli_sql_exception $e) {
-        if (isset($stmt) && $stmt) $stmt->close();
-        CloseDatabase($context);
-        if (strpos($e->getMessage(), "Duplicate entry") !== false) {
-            return "El correo '$correo' ya está registrado.";
-        } else {
-            return "Error al registrar usuario: " . $e->getMessage();
-        }
+        return $result;
+    }
+    catch (Exception $e)
+    {
+        return false;
     }
 }
 
-function IniciarSesionModel($correo)
+function IniciarSesionModel($correoElectronico, $contrasenna)
 {
-    $context = OpenDatabase();
-    try {
-        $stmt = $context->prepare("CALL sp_Login(?)");
-        $stmt->bind_param('s', $correo);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $user = $result->fetch_assoc();
-        $stmt->close();
+    try
+    {
+        $context = OpenDatabase();
+
+        $sp = "CALL sp_Login('$correoElectronico')";
+        $result = $context->query($sp);
+
+        $datos = null;
+        while ($fila = $result->fetch_assoc())
+        {
+            $datos = $fila;
+        }
+
         CloseDatabase($context);
-        return $user ?: null;
-    } catch (Exception $e) {
-        if (isset($stmt) && $stmt) $stmt->close();
-        if (isset($context)) CloseDatabase($context);
-        return false;
+
+        if ($datos && $datos["contrasena"] === $contrasenna) {
+            return $datos;
+        }
+        return null;
+    }
+    catch (Exception $e)
+    {
+        return null;
+    }
+}
+
+function ValidarCorreoModel($correo)
+{
+    try
+    {
+        $context = OpenDatabase();
+
+        $sp = "CALL sp_ValidarCorreo('$correo')";
+        $result = $context->query($sp);
+
+        $datos = null;
+        while ($fila = $result->fetch_assoc())
+        {
+            $datos = $fila;
+        }
+
+        CloseDatabase($context);
+        return $datos;
+    }
+    catch (Exception $e)
+    {
+        return null;
     }
 }

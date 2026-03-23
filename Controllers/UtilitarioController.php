@@ -1,16 +1,46 @@
 <?php
-// UtilitarioController.php — Esqueleto base estilo MN_ECC
 
-session_start();
+function GenerarContrasena()
+{
+    $letras = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $longitud = 8;
+    $contrasena = '';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['btnGenerarContrasenna'])) {
-        // TODO: lógica para generar contraseña aleatoria
+    for ($i = 0; $i < $longitud; $i++) {
+        $indice = rand(0, strlen($letras) - 1);
+        $contrasena .= $letras[$indice];
     }
-    if (isset($_POST['btnEnviarCorreo'])) {
-        // TODO: lógica para enviar correo (PHPMailer)
-    }
+
+    return $contrasena;
 }
-// Si no es POST, redirigir a inicio
-header('Location: ../Views/Home/inicio.php');
-exit;
+
+function EnviarCorreo($asunto, $contenido, $destinatario)
+{
+    require_once __DIR__ . '/PHPMailer/src/PHPMailer.php';
+    require_once __DIR__ . '/PHPMailer/src/SMTP.php';
+
+    $correoSalida = "ezuniga70056@ufide.ac.cr";
+    $contrasenaSalida = "";
+
+    if ($contrasenaSalida == "") {
+        return true; // Simulación de envío exitoso
+    }
+
+    $mail = new PHPMailer();
+    $mail->CharSet = 'UTF-8';
+
+    $mail->isSMTP();
+    $mail->isHTML(true);
+    $mail->Host       = 'smtp.office365.com';
+    $mail->SMTPSecure = 'tls';
+    $mail->Port       = 587;
+    $mail->SMTPAuth   = true;
+    $mail->Username   = $correoSalida;
+    $mail->Password   = $contrasenaSalida;
+
+    $mail->setFrom($correoSalida);
+    $mail->Subject = $asunto;
+    $mail->msgHTML($contenido);
+    $mail->addAddress($destinatario);
+    $mail->send();
+}
