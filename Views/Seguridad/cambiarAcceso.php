@@ -67,7 +67,7 @@ include_once $_SERVER["DOCUMENT_ROOT"] . "/G4_AmbienteWeb/Controllers/SeguridadC
                                             <span class="input-group-text"><i class="lni lni-lock"></i></span>
                                             <input type="password" class="form-control" id="ConfirmarContrasena"
                                                 name="ConfirmarContrasena" placeholder="Repite tu nueva contraseña"
-                                                required />
+                                                required minlength="6" />
                                             <div class="invalid-feedback">Las contraseñas no coinciden.</div>
                                         </div>
                                     </div>
@@ -90,4 +90,6 @@ include_once $_SERVER["DOCUMENT_ROOT"] . "/G4_AmbienteWeb/Controllers/SeguridadC
                             </a>
                         </div>
 
+<?php MostrarJS(); ?>
+<script src="../funciones/cambiarAcceso.js"></script>
 </html>

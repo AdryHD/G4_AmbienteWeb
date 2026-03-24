@@ -15,126 +15,196 @@
   --light-color: #ECECEC;
 }
 
-/* Efectos hover para cards */
+/* Tipografía mejorada */
+body {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  line-height: 1.6;
+  color: #333333;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  letter-spacing: -0.5px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+p {
+  color: #666666;
+  line-height: 1.7;
+}
+
+/* Efectos hover para cards mejorados */
 .hover-card {
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   cursor: pointer;
+  border-radius: 15px;
 }
 
 .hover-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2) !important;
+  transform: translateY(-12px);
+  box-shadow: 0 20px 40px rgba(46, 204, 113, 0.15) !important;
 }
 
-/* Product cards */
+/* Product cards mejoradas */
 .product-card {
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   overflow: hidden;
+  border-radius: 15px;
+  border: none;
 }
 
 .product-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15) !important;
+  transform: translateY(-12px) scale(1.02);
+  box-shadow: 0 20px 50px rgba(46, 204, 113, 0.2) !important;
 }
 
 .product-card .card-img-top {
-  transition: all 0.3s ease;
+  transition: all 0.4s ease;
 }
 
 .product-card:hover .card-img-top {
-  transform: scale(1.05);
+  transform: scale(1.1);
 }
 
-/* Botones personalizados */
-.btn-primary {
-  --bs-btn-color: #ffffff;
-  --bs-btn-bg: #000000;
-  --bs-btn-border-color: #000000;
-  --bs-btn-hover-color: #2ECC71;
-  --bs-btn-hover-bg: #000000;
-  --bs-btn-hover-border-color: #000000;
-  --bs-btn-active-color: #2ECC71;
-  --bs-btn-active-bg: #000000;
-  --bs-btn-active-border-color: #000000;
-  --bs-btn-focus-shadow-rgb: 0, 0, 0;
+/* Botones personalizados mejorados */
+.btn-success, .btn-primary {
   font-weight: 600;
-  transition: all 0.3s ease;
+  border-radius: 8px;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border: none;
+  box-shadow: 0 4px 15px rgba(46, 204, 113, 0.2);
 }
 
-.btn-primary:hover,
-.btn-primary:focus {
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+.btn-success:hover,
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(46, 204, 113, 0.3);
 }
 
-.btn-outline-primary {
+.btn-success:active,
+.btn-primary:active {
+  transform: translateY(-1px);
+}
+
+.btn-outline-success {
   border-color: var(--primary-color) !important;
   color: var(--primary-color) !important;
   font-weight: 600 !important;
+  border-width: 2px;
   transition: all 0.3s ease !important;
+  border-radius: 8px;
 }
 
-.btn-outline-primary:hover,
-.btn-outline-primary:focus {
-  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%) !important;
-  border-color: transparent !important;
+.btn-outline-success:hover,
+.btn-outline-success:focus {
+  background: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
   color: #ffffff !important;
+  box-shadow: 0 8px 25px rgba(46, 204, 113, 0.3);
+  transform: translateY(-3px);
 }
 
-/* Botones light personalizados */
-.btn-light {
-  background-color: #000000 !important;
-  border: none !important;
-  color: #ffffff !important;
+.btn-outline-light {
+  border-color: white !important;
+  color: white !important;
   font-weight: 600 !important;
+  border-width: 2px;
   transition: all 0.3s ease !important;
+  border-radius: 8px;
 }
 
-.btn-light:hover,
-.btn-light:focus {
-  background-color: #000000 !important;
-  color: #2ECC71 !important;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3) !important;
-  border-color: #000000 !important;
-}
-
-/* Navbar personalizada */
-.navbar-light .navbar-nav .nav-link {
+.btn-outline-light:hover,
+.btn-outline-light:focus {
+  background: white !important;
+  border-color: white !important;
   color: #1A1A1A !important;
+  box-shadow: 0 8px 25px rgba(255, 255, 255, 0.3);
+  transform: translateY(-3px);
+}
+
+/* Navbar personalizada mejorada */
+.navbar {
+  border-bottom: 3px solid rgba(26, 26, 26, 0.1);
+}
+
+.navbar-light {
+  background: linear-gradient(135deg, #2ECC71 0%, #27a654 100%) !important;
+  box-shadow: 0 4px 20px rgba(46, 204, 113, 0.15);
+}
+
+.navbar-light .navbar-nav .nav-link {
+  color: white !important;
   font-weight: 600;
+  padding: 8px 16px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  font-size: 0.95rem;
 }
 
 .navbar-light .navbar-nav .nav-link:hover {
-  background-color: rgba(0, 0, 0, 0.1);
-  border-radius: 5px;
-  transition: all 0.3s ease;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  transform: translateY(-2px);
 }
 
 .navbar-light .navbar-brand {
-  color: #1A1A1A !important;
+  color: white !important;
   font-weight: 700;
+  font-size: 1.4rem;
+  letter-spacing: -0.5px;
 }
 
 .navbar-light .dropdown-menu {
   border: 2px solid #2ECC71;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  margin-top: 10px;
 }
 
-/* Input groups con iconos */
+.navbar-light .dropdown-menu .dropdown-item {
+  color: #333333;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border-radius: 6px;
+  margin: 5px 8px;
+}
+
+.navbar-light .dropdown-menu .dropdown-item:hover {
+  background: rgba(46, 204, 113, 0.1);
+  color: #2ECC71;
+  padding-left: 20px;
+}
+
+/* Input groups con iconos mejorados */
 .input-group-text {
   background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
   color: white;
   border: none;
+  border-radius: 8px 0 0 8px;
+  border-width: 0;
+}
+
+.form-control {
+  border: 2px solid #E0E0E0;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  padding: 10px 15px;
 }
 
 .form-control:focus {
   border-color: var(--primary-color);
-  box-shadow: 0 0 0 0.2rem rgba(46, 204, 113, 0.25);
+  box-shadow: 0 0 0 0.3rem rgba(46, 204, 113, 0.15);
 }
 
-/* Cards de login y registro */
+/* Cards mejoradas */
 .card {
   border: none;
   border-radius: 15px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.card:hover {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
 }
 
 .card-body {
@@ -143,13 +213,25 @@
 
 /* Hero section */
 .hero-section {
-  min-height: 400px;
+  min-height: 280px;
 }
 
-/* Badges personalizados */
+.hero-copy {
+  margin-left: 0;
+  padding-left: clamp(32px, 7vw, 120px);
+  max-width: 980px;
+}
+
+.hero-logo-wrap {
+  justify-content: flex-end !important;
+}
+
+/* Badges personalizados mejorados */
 .badge {
-  padding: 0.4em 0.8em;
+  padding: 0.5rem 0.8rem;
   font-weight: 600;
+  border-radius: 6px;
+  font-size: 0.85rem;
 }
 
 /* Footer links */
@@ -182,6 +264,11 @@ footer a:hover {
   
   .hero-section {
     min-height: 300px;
+  }
+
+  .hero-copy {
+    margin-left: 0;
+    padding-left: 0;
   }
   
   .product-card .card-img-top {

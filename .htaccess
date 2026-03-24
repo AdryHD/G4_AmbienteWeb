@@ -4,21 +4,21 @@
 # y comenten la otra. Solo una sección debe estar activa a la vez.
 
 # ── Windows (descomentar si usan Windows) ──
- <IfModule mod_php.c>
-     php_value auto_prepend_file "c:/xampp/htdocs/G4_AmbienteWeb/Views/auth_check.php"
-</IfModule>
- <IfModule mod_php7.c>
-     php_value auto_prepend_file "c:/xampp/htdocs/G4_AmbienteWeb/Views/auth_check.php"
- </IfModule>
+# <IfModule mod_php.c>
+#     php_value auto_prepend_file "c:/xampp/htdocs/G4_AmbienteWeb/Views/auth_check.php"
+# </IfModule>
+# <IfModule mod_php7.c>
+#     php_value auto_prepend_file "c:/xampp/htdocs/G4_AmbienteWeb/Views/auth_check.php"
+# </IfModule>
 
 
 
 # ── Mac (descomentar si usan Mac) ──
-#<IfModule mod_php.c>
-#    php_value auto_prepend_file "/Applications/XAMPP/xamppfiles/htdocs/G4_AmbienteWeb/Views/auth_check.php"
-#</IfModule>
-#<IfModule mod_php7.c>
-#    php_value auto_prepend_file "/Applications/XAMPP/xamppfiles/htdocs/G4_AmbienteWeb/Views/auth_check.php"
-#</IfModule>
+<IfModule mod_php.c>
+    php_value auto_prepend_file "/Applications/XAMPP/xamppfiles/htdocs/G4_AmbienteWeb/Views/auth_check.php"
+</IfModule>
+<IfModule mod_php7.c>
+    php_value auto_prepend_file "/Applications/XAMPP/xamppfiles/htdocs/G4_AmbienteWeb/Views/auth_check.php"
+</IfModule>
 
 # If PHP runs as CGI/FastCGI you may need to set this in php.ini or vhost config instead.

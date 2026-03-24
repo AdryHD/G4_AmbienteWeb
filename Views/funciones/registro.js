@@ -1,13 +1,13 @@
 document.addEventListener('DOMContentLoaded', function () {
 
-    const form = document.getElementById('formRegistro');
+    const form        = document.getElementById('formRegistro');
     if (!form) return;
 
-    form.addEventListener('submit', function (e) {
-        const contrasena = document.getElementById('Contrasenna');
-        const confirmar  = document.getElementById('ConfirmarContrasenna');
+    const contrasena  = document.getElementById('Contrasenna');
+    const confirmar   = document.getElementById('ConfirmarContrasenna');
 
-        // Validar que las contraseñas coincidan
+    // ── Validación al enviar ──────────────────────────────────────
+    form.addEventListener('submit', function (e) {
         if (contrasena && confirmar && contrasena.value !== confirmar.value) {
             confirmar.setCustomValidity('Las contraseñas no coinciden');
         } else if (confirmar) {
@@ -22,13 +22,19 @@ document.addEventListener('DOMContentLoaded', function () {
         form.classList.add('was-validated');
     });
 
-    // Limpiar error de confirmar cuando el usuario escribe
-    const confirmar = document.getElementById('ConfirmarContrasenna');
+    // ── Validación en tiempo real ─────────────────────────────────
     if (confirmar) {
         confirmar.addEventListener('input', function () {
-            this.setCustomValidity('');
+            if (contrasena && this.value !== contrasena.value) {
+                this.setCustomValidity('Las contraseñas no coinciden');
+            } else {
+                this.setCustomValidity('');
+            }
         });
     }
+
+
+
 });
 
 function ConsultarNombre() {

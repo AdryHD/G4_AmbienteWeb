@@ -39,6 +39,7 @@ if (isset($_POST["btnIniciarSesion"])) {
         $_SESSION["usuario_id"]       = $result["id_usuario"];
         $_SESSION["usuario_nombre"]   = $result["nombre"];
         $_SESSION["usuario_email"]    = $result["correo"];
+        $_SESSION["usuario_rol"]      = $result["id_rol"];
         header("Location: /G4_AmbienteWeb/Views/Home/home.php");
         exit;
     } else {

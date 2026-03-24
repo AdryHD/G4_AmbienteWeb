@@ -19,8 +19,8 @@ function EnviarCorreo($asunto, $contenido, $destinatario)
     require_once __DIR__ . '/PHPMailer/src/PHPMailer.php';
     require_once __DIR__ . '/PHPMailer/src/SMTP.php';
 
-    $correoSalida = "ezuniga70056@ufide.ac.cr";
-    $contrasenaSalida = "";
+    $correoSalida     = "ahernandez10645@ufide.ac.cr";
+    $contrasenaSalida = "Detrasdelsol001";
 
     if ($contrasenaSalida == "") {
         return true; // Simulación de envío exitoso
@@ -38,9 +38,10 @@ function EnviarCorreo($asunto, $contenido, $destinatario)
     $mail->Username   = $correoSalida;
     $mail->Password   = $contrasenaSalida;
 
-    $mail->setFrom($correoSalida);
+    $mail->setFrom($correoSalida, 'PowerZone');
     $mail->Subject = $asunto;
     $mail->msgHTML($contenido);
     $mail->addAddress($destinatario);
     $mail->send();
 }
+

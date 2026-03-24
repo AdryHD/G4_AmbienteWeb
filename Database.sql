@@ -93,6 +93,10 @@ CREATE TABLE `categorias` (
 
 LOCK TABLES `categorias` WRITE;
 /*!40000 ALTER TABLE `categorias` DISABLE KEYS */;
+INSERT INTO `categorias` VALUES
+(1,'Ropa Deportiva','activo'),
+(2,'Zapatos Deportivos','activo'),
+(3,'Accesorios','activo');
 /*!40000 ALTER TABLE `categorias` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -189,6 +193,11 @@ CREATE TABLE `productos` (
 
 LOCK TABLES `productos` WRITE;
 /*!40000 ALTER TABLE `productos` DISABLE KEYS */;
+INSERT INTO `productos` VALUES
+(1,1,'Camiseta Deportiva Pro','Tecnología Dri-FIT para máximo rendimiento',29990.00,25,'M','Verde','/G4_AmbienteWeb/Views/assets/images/products/01camiseta.png','activo'),
+(2,2,'Zapatos Running Elite','Amortiguación superior para corredores',79990.00,18,'42','Negro','/G4_AmbienteWeb/Views/assets/images/products/02zapatos.png','activo'),
+(3,1,'Shorts de Entrenamiento','Ligeros y transpirables',24990.00,30,'L','Gris','/G4_AmbienteWeb/Views/assets/images/products/03short.png','activo'),
+(4,3,'Mochila Deportiva','Espacio para todo tu equipo',39990.00,12,'U','Gris','/G4_AmbienteWeb/Views/assets/images/products/04mochila.png','activo');
 /*!40000 ALTER TABLE `productos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -397,7 +406,8 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_ValidarCorreo`(
 BEGIN
     SELECT  id_usuario,
             nombre,
-            correo
+      correo,
+      contrasena
     FROM    usuarios
     WHERE   correo  = pCorreo
     AND     estado  = 'activo';

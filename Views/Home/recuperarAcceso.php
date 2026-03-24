@@ -93,3 +93,82 @@ include_once $_SERVER["DOCUMENT_ROOT"] . "/G4_AmbienteWeb/Controllers/HomeContro
 </body>
 
 </html>
+
+                            <div class="row g-0 auth-row">
+                                <div class="col-lg-6">
+                                    <div class="auth-cover-wrapper bg-primary-100">
+                                        <div class="auth-cover">
+                                            <div class="title text-center">
+                                                <h1 class="text-primary mb-10">Bienvenid@</h1>
+                                                <p class="text-medium">
+                                                    Enviaremos un correo electrónico
+                                                </p>
+                                            </div>
+                                            <div class="cover-image">
+                                                <img src="../assets/images/signup-image.svg" alt="" />
+                                            </div>
+                                            <div class="shape-image">
+                                                <img src="../assets/images/shape.svg" alt="" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="signup-wrapper">
+                                        <div class="form-wrapper">
+
+                                            <?php
+                                            if (isset($_POST["Mensaje"])) {
+                                                echo '<div class="alert alert-danger text-center" role="alert">'
+                                                    . htmlspecialchars($_POST["Mensaje"]) . '</div>';
+                                            }
+                                            ?>
+
+                                            <h3 class="mb-15">Recuperar Acceso</h3>
+
+                                            <form id="formRecuperarAcceso" action="" method="POST">
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="input-style-1">
+                                                            <label>Correo Electrónico</label>
+                                                            <input type="text" placeholder="Correo Electrónico"
+                                                                id="CorreoElectronico" name="CorreoElectronico" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <div class="button-group d-flex justify-content-center flex-wrap">
+                                                            <button type="submit" id="btnRecuperarAcceso" name="btnRecuperarAcceso"
+                                                                class="main-btn primary-btn btn-hover w-100 text-center">
+                                                                Procesar
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+
+                                            <div class="singup-option pt-40">
+                                                <p class="text-sm text-medium text-dark text-center">
+                                                    Ya tiene una cuenta? <a href="inicio.php">Inicia Sesión</a>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <?php MostrarFooter(); ?>
+
+    </main>
+
+    <?php MostrarJS(); ?>
+    <script src="../funciones/recuperarAcceso.js"></script>
+
+</body>
+
+</html>

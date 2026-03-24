@@ -4,11 +4,11 @@
     var form = document.getElementById('formCambiarAcceso');
     if (!form) return;
 
-    form.addEventListener('submit', function (event) {
-        var nueva      = document.getElementById('NuevaContrasena');
-        var confirmar  = document.getElementById('ConfirmarContrasena');
+    var nueva     = document.getElementById('NuevaContrasena');
+    var confirmar = document.getElementById('ConfirmarContrasena');
 
-        // Validar coincidencia de contraseñas
+    // ── Validación al enviar ──────────────────────────────────────
+    form.addEventListener('submit', function (event) {
         if (nueva.value !== confirmar.value) {
             confirmar.setCustomValidity('Las contraseñas no coinciden.');
         } else {
@@ -23,9 +23,15 @@
         form.classList.add('was-validated');
     });
 
-    // Limpiar validación personalizada al escribir
-    document.getElementById('ConfirmarContrasena').addEventListener('input', function () {
-        this.setCustomValidity('');
+    // ── Validación en tiempo real ─────────────────────────────────
+    confirmar.addEventListener('input', function () {
+        if (this.value !== nueva.value) {
+            this.setCustomValidity('Las contraseñas no coinciden.');
+        } else {
+            this.setCustomValidity('');
+        }
     });
+
+
 
 })();

@@ -2,7 +2,9 @@
 include_once $_SERVER["DOCUMENT_ROOT"] . "/G4_AmbienteWeb/Views/layout.php";
 include_once $_SERVER["DOCUMENT_ROOT"] . "/G4_AmbienteWeb/Controllers/ProductoController.php";
 
-$datosProductos = ConsultarProductos();
+$datosProductos        = ConsultarProductos();
+$datosCategoriasSelect = ConsultarCategorias();
+$esAdmin = isset($_SESSION["usuario_rol"]) && $_SESSION["usuario_rol"] == 1;
 ?>
 
 <!DOCTYPE html>
@@ -48,6 +50,12 @@ $datosProductos = ConsultarProductos();
                             <h5 class="mb-0 fw-bold"><i class="lni lni-list me-2" style="color:#2ECC71;"></i>Listado de Productos</h5>
                             <small class="text-muted">Total: <?php echo count($datosProductos ?? []); ?> producto(s) registrado(s)</small>
                         </div>
+                        <?php if ($esAdmin): ?>
+                        <button type="button" class="btn text-white fw-semibold" style="background:#2ECC71; border:none;"
+                                data-bs-toggle="modal" data-bs-target="#modalAgregarProducto">
+                            <i class="lni lni-plus me-1"></i>Agregar Producto
+                        </button>
+                        <?php endif; ?>
                     </div>
                     <div class="card-body p-0">
                         <div class="table-responsive">
@@ -124,6 +132,82 @@ $datosProductos = ConsultarProductos();
     </main>
 
     <?php MostrarJS(); ?>
+
+<?php if ($esAdmin): ?>
+<!-- Modal Agregar Producto -->
+<div class="modal fade" id="modalAgregarProducto" tabindex="-1" aria-labelledby="modalAgregarProductoLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content border-0 shadow">
+            <form method="POST" action="">
+                <div class="modal-header" style="background:#2ECC71;">
+                    <h5 class="modal-title text-white fw-bold" id="modalAgregarProductoLabel">
+                        <i class="lni lni-plus me-2"></i>Agregar Nuevo Producto
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="row g-3">
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold">Categoría <span class="text-danger">*</span></label>
+                            <select class="form-select" name="id_categoria" required>
+                                <option value="">Seleccione una categoría</option>
+                                <?php foreach ($datosCategoriasSelect as $cat): ?>
+                                <option value="<?php echo $cat['id_categoria']; ?>">
+                                    <?php echo htmlspecialchars($cat['nombre'], ENT_QUOTES, 'UTF-8'); ?>
+                                </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold">Nombre <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" name="nombre" placeholder="Nombre del producto" required maxlength="120">
+                        </div>
+
+                        <div class="col-12">
+                            <label class="form-label fw-semibold">Descripción</label>
+                            <textarea class="form-control" name="descripcion" rows="2" placeholder="Descripción del producto" maxlength="500"></textarea>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label fw-semibold">Precio (₡) <span class="text-danger">*</span></label>
+                            <input type="number" class="form-control" name="precio" placeholder="0.00" min="0" step="0.01" required>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label fw-semibold">Stock <span class="text-danger">*</span></label>
+                            <input type="number" class="form-control" name="stock" placeholder="0" min="0" required>
+                        </div>
+
+                        <div class="col-md-2">
+                            <label class="form-label fw-semibold">Talla</label>
+                            <input type="text" class="form-control" name="talla" placeholder="XS/S/M/L/XL" maxlength="5">
+                        </div>
+
+                        <div class="col-md-2">
+                            <label class="form-label fw-semibold">Color</label>
+                            <input type="text" class="form-control" name="color" placeholder="Color" maxlength="30">
+                        </div>
+
+                        <div class="col-12">
+                            <label class="form-label fw-semibold">URL de Imagen</label>
+                            <input type="text" class="form-control" name="imagen" placeholder="/G4_AmbienteWeb/Views/assets/images/products/imagen.png" maxlength="255">
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" name="btnAgregarProducto" class="btn text-white fw-semibold" style="background:#2ECC71; border:none;">
+                        <i class="lni lni-checkmark me-1"></i>Guardar Producto
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<?php endif; ?>
 
 </body>
 
