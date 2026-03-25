@@ -181,6 +181,7 @@ CREATE TABLE `productos` (
   `color` varchar(30) DEFAULT NULL,
   `imagen` varchar(255) DEFAULT NULL,
   `estado` enum('activo','inactivo') NOT NULL DEFAULT 'activo',
+  `en_oferta` bit(1) NOT NULL DEFAULT b'0',
   PRIMARY KEY (`id_producto`),
   KEY `id_categoria` (`id_categoria`),
   CONSTRAINT `productos_ibfk_1` FOREIGN KEY (`id_categoria`) REFERENCES `categorias` (`id_categoria`)
@@ -194,10 +195,10 @@ CREATE TABLE `productos` (
 LOCK TABLES `productos` WRITE;
 /*!40000 ALTER TABLE `productos` DISABLE KEYS */;
 INSERT INTO `productos` VALUES
-(1,1,'Camiseta Deportiva Pro','Tecnología Dri-FIT para máximo rendimiento',29990.00,25,'M','Verde','/G4_AmbienteWeb/Views/assets/images/products/01camiseta.png','activo'),
-(2,2,'Zapatos Running Elite','Amortiguación superior para corredores',79990.00,18,'42','Negro','/G4_AmbienteWeb/Views/assets/images/products/02zapatos.png','activo'),
-(3,1,'Shorts de Entrenamiento','Ligeros y transpirables',24990.00,30,'L','Gris','/G4_AmbienteWeb/Views/assets/images/products/03short.png','activo'),
-(4,3,'Mochila Deportiva','Espacio para todo tu equipo',39990.00,12,'U','Gris','/G4_AmbienteWeb/Views/assets/images/products/04mochila.png','activo');
+(1,1,'Camiseta Deportiva Pro','Tecnología Dri-FIT para máximo rendimiento',29990.00,25,'M','Verde','/G4_AmbienteWeb/Views/assets/images/products/01camiseta.png','activo',0),
+(2,2,'Zapatos Running Elite','Amortiguación superior para corredores',79990.00,18,'42','Negro','/G4_AmbienteWeb/Views/assets/images/products/02zapatos.png','activo',0),
+(3,1,'Shorts de Entrenamiento','Ligeros y transpirables',24990.00,30,'L','Gris','/G4_AmbienteWeb/Views/assets/images/products/03short.png','activo',0),
+(4,3,'Mochila Deportiva','Espacio para todo tu equipo',39990.00,12,'U','Gris','/G4_AmbienteWeb/Views/assets/images/products/04mochila.png','activo',0);
 /*!40000 ALTER TABLE `productos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -353,6 +354,7 @@ BEGIN
             color,
             imagen,
             estado,
+            en_oferta,
             CASE WHEN estado = 'activo' THEN 'Activo' ELSE 'Inactivo' END AS EstadoDescripcion
     FROM    productos;
 END ;;

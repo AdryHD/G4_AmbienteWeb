@@ -45,6 +45,48 @@ function ConsultarCategoriasModel()
     }
 }
 
+function CambiarEstadoProductoModel($idProducto)
+{
+    try
+    {
+        $context = OpenDatabase();
+        $stmt    = $context->prepare(
+            "UPDATE productos SET estado = IF(estado='activo','inactivo','activo') WHERE id_producto = ?"
+        );
+        $stmt->bind_param("i", $idProducto);
+        $stmt->execute();
+        $ok = $stmt->affected_rows > 0;
+        $stmt->close();
+        CloseDatabase($context);
+        return $ok;
+    }
+    catch (Exception $e)
+    {
+        return false;
+    }
+}
+
+function ToggleOfertaModel($idProducto)
+{
+    try
+    {
+        $context = OpenDatabase();
+        $stmt    = $context->prepare(
+            "UPDATE productos SET en_oferta = IF(en_oferta=1,0,1) WHERE id_producto = ?"
+        );
+        $stmt->bind_param("i", $idProducto);
+        $stmt->execute();
+        $ok = $stmt->affected_rows > 0;
+        $stmt->close();
+        CloseDatabase($context);
+        return $ok;
+    }
+    catch (Exception $e)
+    {
+        return false;
+    }
+}
+
 function AgregarProductoModel($idCategoria, $nombre, $descripcion, $precio, $stock, $talla, $color, $imagen)
 {
     try

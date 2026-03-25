@@ -39,5 +39,15 @@ if (isset($_POST["btnAgregarProducto"])) {
 }
 
 if (isset($_POST["btnCambiarEstado"])) {
-    // TODO: implementar cambio de estado de producto
+    $id     = (int)$_POST["id_producto"];
+    $result = CambiarEstadoProductoModel($id);
+    $_POST["Mensaje"]     = $result ? "Estado del producto actualizado." : "Error al actualizar el estado.";
+    $_POST["TipoMensaje"] = $result ? "success" : "danger";
+}
+
+if (isset($_POST["btnToggleOferta"])) {
+    $id     = (int)$_POST["id_producto"];
+    $result = ToggleOfertaModel($id);
+    $_POST["Mensaje"]     = $result ? "Estado de oferta actualizado." : "Error al actualizar la oferta.";
+    $_POST["TipoMensaje"] = $result ? "success" : "danger";
 }

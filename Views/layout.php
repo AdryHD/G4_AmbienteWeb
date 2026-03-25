@@ -52,7 +52,7 @@ HTML;
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#productos" style="color: white; font-weight: 600;">
+              <a class="nav-link" href="{$base}/Views/Producto/tienda.php" style="color: white; font-weight: 600;">
                 <i class="lni lni-shopping-basket me-1"></i>Productos
               </a>
             </li>
@@ -134,7 +134,7 @@ echo
 
     <link rel="stylesheet" href="../assets/css/bootstrap.min.css" />
     <link rel="stylesheet" href="../assets/css/lineicons.css" />
-    <link rel="stylesheet" href="../assets/css/materialdesignicons.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css" />
     <link rel="stylesheet" href="../assets/css/main.css" />
     <link rel="stylesheet" href="../assets/css/custom.css" />
   </head>';

@@ -70,6 +70,7 @@ $esAdmin = isset($_SESSION["usuario_rol"]) && $_SESSION["usuario_rol"] == 1;
                                         <th class="py-3">Talla</th>
                                         <th class="py-3">Color</th>
                                         <th class="py-3">Estado</th>
+                                        <th class="py-3">Oferta</th>
                                         <th class="py-3">Imagen</th>
                                         <th class="py-3 text-center">Acciones</th>
                                     </tr>
@@ -82,10 +83,14 @@ $esAdmin = isset($_SESSION["usuario_rol"]) && $_SESSION["usuario_rol"] == 1;
                                             ? '<img src="' . htmlspecialchars($producto['imagen'], ENT_QUOTES, 'UTF-8') . '" alt="Imagen" width="55" class="rounded shadow-sm">'
                                             : '<span class="badge bg-secondary">Sin imagen</span>';
 
-                                        $esActivo = strtolower($producto['EstadoDescripcion']) === 'activo';
+                                        $esActivo   = strtolower($producto['EstadoDescripcion']) === 'activo';
+                                        $enOferta   = (int)$producto['en_oferta'] === 1;
                                         $estadoBadge = $esActivo
                                             ? '<span class="badge rounded-pill" style="background:#2ECC71;">Activo</span>'
                                             : '<span class="badge rounded-pill bg-secondary">Inactivo</span>';
+                                        $ofertaBadge = $enOferta
+                                            ? '<span class="badge rounded-pill" style="background:#f39c12;"><i class="lni lni-offer me-1"></i>Sí</span>'
+                                            : '<span class="badge rounded-pill bg-light text-muted border">No</span>';
 
                                         echo '
                                         <tr>
@@ -97,6 +102,7 @@ $esAdmin = isset($_SESSION["usuario_rol"]) && $_SESSION["usuario_rol"] == 1;
                                             <td>' . htmlspecialchars($producto['talla'] ?? '-', ENT_QUOTES, 'UTF-8') . '</td>
                                             <td>' . htmlspecialchars($producto['color'] ?? '-', ENT_QUOTES, 'UTF-8') . '</td>
                                             <td>' . $estadoBadge . '</td>
+                                            <td>' . $ofertaBadge . '</td>
                                             <td>' . $imagen . '</td>
                                             <td class="text-center">
                                                 <form action="" method="POST" style="display:inline;">
@@ -108,11 +114,21 @@ $esAdmin = isset($_SESSION["usuario_rol"]) && $_SESSION["usuario_rol"] == 1;
                                                         <i class="lni lni-reload me-1"></i>' . ($esActivo ? 'Desactivar' : 'Activar') . '
                                                     </button>
                                                 </form>
+                                                <form action="" method="POST" style="display:inline;margin-left:4px;">
+                                                    <input type="hidden" name="id_producto" value="' . $producto['id_producto'] . '">
+                                                    <input type="hidden" name="en_oferta_actual" value="' . ($enOferta ? '1' : '0') . '">
+                                                    <button name="btnToggleOferta" type="submit"
+                                                        class="btn btn-sm fw-semibold"
+                                                        style="background:' . ($enOferta ? '#fff3e0' : '#fff8e1') . '; color:#e67e22; border:1px solid #f39c12;"
+                                                        title="' . ($enOferta ? 'Quitar de oferta' : 'Poner en oferta') . '">
+                                                        <i class="lni lni-offer me-1"></i>' . ($enOferta ? 'Quitar oferta' : 'En oferta') . '
+                                                    </button>
+                                                </form>
                                             </td>
                                         </tr>';
                                     }
                                 } else {
-                                    echo '<tr><td colspan="10" class="text-center text-muted py-5">
+                                    echo '<tr><td colspan="11" class="text-center text-muted py-5">
                                         <i class="lni lni-shopping-basket d-block mb-2" style="font-size:2rem;opacity:.4;"></i>
                                         No hay productos registrados.
                                     </td></tr>';
@@ -138,7 +154,7 @@ $esAdmin = isset($_SESSION["usuario_rol"]) && $_SESSION["usuario_rol"] == 1;
 <div class="modal fade" id="modalAgregarProducto" tabindex="-1" aria-labelledby="modalAgregarProductoLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content border-0 shadow">
-            <form method="POST" action="">
+            <form method="POST" action="" id="formAgregarProducto" novalidate>
                 <div class="modal-header" style="background:#2ECC71;">
                     <h5 class="modal-title text-white fw-bold" id="modalAgregarProductoLabel">
                         <i class="lni lni-plus me-2"></i>Agregar Nuevo Producto
@@ -158,11 +174,13 @@ $esAdmin = isset($_SESSION["usuario_rol"]) && $_SESSION["usuario_rol"] == 1;
                                 </option>
                                 <?php endforeach; ?>
                             </select>
+                            <div class="invalid-feedback">Seleccione una categoría.</div>
                         </div>
 
                         <div class="col-md-6">
                             <label class="form-label fw-semibold">Nombre <span class="text-danger">*</span></label>
                             <input type="text" class="form-control" name="nombre" placeholder="Nombre del producto" required maxlength="120">
+                            <div class="invalid-feedback">El nombre es obligatorio.</div>
                         </div>
 
                         <div class="col-12">
@@ -173,11 +191,13 @@ $esAdmin = isset($_SESSION["usuario_rol"]) && $_SESSION["usuario_rol"] == 1;
                         <div class="col-md-4">
                             <label class="form-label fw-semibold">Precio (₡) <span class="text-danger">*</span></label>
                             <input type="number" class="form-control" name="precio" placeholder="0.00" min="0" step="0.01" required>
+                            <div class="invalid-feedback">Ingrese un precio válido.</div>
                         </div>
 
                         <div class="col-md-4">
                             <label class="form-label fw-semibold">Stock <span class="text-danger">*</span></label>
                             <input type="number" class="form-control" name="stock" placeholder="0" min="0" required>
+                            <div class="invalid-feedback">Ingrese el stock disponible.</div>
                         </div>
 
                         <div class="col-md-2">
@@ -208,6 +228,20 @@ $esAdmin = isset($_SESSION["usuario_rol"]) && $_SESSION["usuario_rol"] == 1;
     </div>
 </div>
 <?php endif; ?>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const form = document.getElementById('formAgregarProducto');
+    if (!form) return;
+    form.addEventListener('submit', function (e) {
+        if (!form.checkValidity()) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+        form.classList.add('was-validated');
+    });
+});
+</script>
 
 </body>
 

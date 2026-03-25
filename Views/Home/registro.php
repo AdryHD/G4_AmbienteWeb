@@ -90,7 +90,7 @@ MostrarCSS();
                   </div>
 
                   <div class="d-grid">
-                    <button type="submit" name="btnRegistrar" class="btn btn-primary btn-lg">
+                    <button type="submit" name="btnRegistrar" class="btn btn-success btn-lg" style="background:#2ecc71;border:none;">
                       <i class="lni lni-checkmark me-2"></i>Registrarse
                     </button>
                   </div>

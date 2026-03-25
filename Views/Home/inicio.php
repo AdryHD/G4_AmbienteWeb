@@ -105,7 +105,7 @@ include_once $_SERVER["DOCUMENT_ROOT"] . "/G4_AmbienteWeb/Controllers/HomeContro
                       <label class="form-check-label" for="recordar">Recordar sesión</label>
                     </div>
                     <div class="d-grid">
-                      <button type="submit" name="btnIniciarSesion" class="btn btn-primary btn-lg"><i class="lni lni-enter me-2"></i>Ingresar</button>
+                      <button type="submit" name="btnIniciarSesion" class="btn btn-success btn-lg" style="background:#2ecc71;border:none;"><i class="lni lni-enter me-2"></i>Ingresar</button>
                     </div>
                   </form>
                   <div class="text-center mt-3">

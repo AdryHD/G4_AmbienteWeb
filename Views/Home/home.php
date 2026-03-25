@@ -80,12 +80,12 @@ $productosDestacados = array_slice($productosDestacados, 0, 4);
               <div class="card-body text-center p-5" style="background: white;">
                 <div class="mb-4">
                   <div style="width: 100px; height: 100px; margin: 0 auto; background: linear-gradient(135deg, #2ECC71 0%, rgba(46, 204, 113, 0.1) 100%); border-radius: 15px; display: flex; align-items: center; justify-content: center;">
-                    <i class="lni lni-tshirt" style="font-size: 50px; color: #2ECC71;"></i>
+                    <i class="mdi mdi-tshirt-crew" style="font-size: 54px; color: #2ECC71;"></i>
                   </div>
                 </div>
                 <h4 class="card-title fw-bold" style="color: #1A1A1A; font-size: 1.3rem; margin-bottom: 10px;">Ropa Deportiva</h4>
                 <p class="card-text" style="color: #666666; margin-bottom: 20px;">Camisetas, pantalones y más para tu entrenamiento</p>
-                <a href="#" class="btn btn-outline-success" style="border: 2px solid #2ECC71; color: #2ECC71; font-weight: 600; transition: all 0.3s ease;">Ver más →</a>
+                <a href="../Producto/tienda.php?cat=1" class="btn btn-outline-success" style="border: 2px solid #2ECC71; color: #2ECC71; font-weight: 600; transition: all 0.3s ease;">Ver más →</a>
               </div>
             </div>
           </div>
@@ -94,12 +94,12 @@ $productosDestacados = array_slice($productosDestacados, 0, 4);
               <div class="card-body text-center p-5" style="background: white;">
                 <div class="mb-4">
                   <div style="width: 100px; height: 100px; margin: 0 auto; background: linear-gradient(135deg, #2ECC71 0%, rgba(46, 204, 113, 0.1) 100%); border-radius: 15px; display: flex; align-items: center; justify-content: center;">
-                    <i class="lni lni-shoe" style="font-size: 50px; color: #2ECC71;"></i>
+                    <i class="mdi mdi-shoe-sneaker" style="font-size: 54px; color: #2ECC71;"></i>
                   </div>
                 </div>
                 <h4 class="card-title fw-bold" style="color: #1A1A1A; font-size: 1.3rem; margin-bottom: 10px;">Zapatos Deportivos</h4>
                 <p class="card-text" style="color: #666666; margin-bottom: 20px;">Las mejores marcas en calzado deportivo</p>
-                <a href="#" class="btn btn-outline-success" style="border: 2px solid #2ECC71; color: #2ECC71; font-weight: 600; transition: all 0.3s ease;">Ver más →</a>
+                <a href="../Producto/tienda.php?cat=2" class="btn btn-outline-success" style="border: 2px solid #2ECC71; color: #2ECC71; font-weight: 600; transition: all 0.3s ease;">Ver más →</a>
               </div>
             </div>
           </div>
@@ -108,12 +108,12 @@ $productosDestacados = array_slice($productosDestacados, 0, 4);
               <div class="card-body text-center p-5" style="background: white;">
                 <div class="mb-4">
                   <div style="width: 100px; height: 100px; margin: 0 auto; background: linear-gradient(135deg, #2ECC71 0%, rgba(46, 204, 113, 0.1) 100%); border-radius: 15px; display: flex; align-items: center; justify-content: center;">
-                    <i class="lni lni-bag" style="font-size: 50px; color: #2ECC71;"></i>
+                    <i class="mdi mdi-bag-personal" style="font-size: 54px; color: #2ECC71;"></i>
                   </div>
                 </div>
                 <h4 class="card-title fw-bold" style="color: #1A1A1A; font-size: 1.3rem; margin-bottom: 10px;">Accesorios</h4>
                 <p class="card-text" style="color: #666666; margin-bottom: 20px;">Complementos para completar tu outfit deportivo</p>
-                <a href="#" class="btn btn-outline-success" style="border: 2px solid #2ECC71; color: #2ECC71; font-weight: 600; transition: all 0.3s ease;">Ver más →</a>
+                <a href="../Producto/tienda.php?cat=3" class="btn btn-outline-success" style="border: 2px solid #2ECC71; color: #2ECC71; font-weight: 600; transition: all 0.3s ease;">Ver más →</a>
               </div>
             </div>
           </div>
@@ -155,7 +155,7 @@ $productosDestacados = array_slice($productosDestacados, 0, 4);
                       <span class="fs-5 fw-bold" style="color: #2ECC71;">
                         ₡<?php echo number_format((float)$producto['precio'], 2); ?>
                       </span>
-                      <button class="btn btn-primary btn-sm">
+                      <button class="btn btn-sm" style="background:#111;border:none;color:#fff;border-radius:10px;padding:8px 18px;font-size:0.95rem;">
                         <i class="lni lni-cart me-1"></i>Agregar
                       </button>
                     </div>
