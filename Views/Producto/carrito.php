@@ -116,7 +116,7 @@ if (!empty($items) && is_array($items)) {
                 </div>
 
                 <hr>
-                <h6 class="fw-bold">Finalizar pedido</h6>
+                <h6 class="fw-bold">Datos del pedido</h6>
                 <form id="formFinalizar">
                     <div class="mb-2">
                         <input type="text" name="direccion" class="form-control" placeholder="Dirección de envío" required>
@@ -134,7 +134,7 @@ if (!empty($items) && is_array($items)) {
                     <div class="mb-2">
                         <textarea name="observaciones" class="form-control" placeholder="Observaciones (opcional)" rows="2"></textarea>
                     </div>
-                    <button class="btn btn-success w-100" id="btnFinalizar" type="submit">Finalizar compra</button>
+                    <button class="btn btn-success w-100" id="btnFinalizar" type="submit">Confirmar</button>
                 </form>
             </div>
         </div>
@@ -199,16 +199,12 @@ document.getElementById('formFinalizar').addEventListener('submit', function(e){
     const formData = new FormData(this);
     const infoEnvio = {};
     formData.forEach((value, key) => { infoEnvio[key] = value; });
+    
+    // Guardamos los datos temporalmente
     localStorage.setItem('datos_envio', JSON.stringify(infoEnvio));
 
-    // Decidir ruta según método de pago
-    if (infoEnvio.metodo_pago === 'Tarjeta') {
-        window.location.href = '/G4_AmbienteWeb/Views/Producto/pagoSimulado.php';
-    } else if (infoEnvio.metodo_pago === 'Transferencia') {
-        window.location.href = '/G4_AmbienteWeb/Views/Producto/transferencia.php';
-    } else {
-        alert('Por favor seleccione un método de pago');
-    }
+    // Redirigimos a la nueva vista de revisión
+    window.location.href = '/G4_AmbienteWeb/Views/Producto/confirmarPedido.php';
 });
 </script>
 
