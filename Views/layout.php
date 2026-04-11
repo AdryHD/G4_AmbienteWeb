@@ -93,6 +93,11 @@ HTML;
                 <i class="lni lni-offer me-1"></i>Ofertas
               </a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{$base}/Views/Producto/consultarPedido.php" style="color: white; font-weight: 600;">
+                <i class="lni lni-package me-1"></i>Pedidos
+              </a>
+            </li>
           </ul>
           <ul class="navbar-nav">
             <li class="nav-item">

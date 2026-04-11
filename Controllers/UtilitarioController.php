@@ -23,7 +23,7 @@ function EnviarCorreo($asunto, $contenido, $destinatario)
     $contrasenaSalida = "";
 
     if ($contrasenaSalida == "") {
-        return true; // Simulación de envío exitoso
+        return true; 
     }
 
     $mail = new PHPMailer();
