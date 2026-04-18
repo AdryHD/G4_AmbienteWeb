@@ -1,6 +1,5 @@
 <?php
 
-// ── Verificación de sesión (cross-platform, sin depender de .htaccess) ──
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -9,8 +8,19 @@ if (empty($_SESSION['usuario_logueado'])) {
     exit;
 }
 
-// Cargar modelo del carrito para mostrar contador en el layout
 include_once $_SERVER["DOCUMENT_ROOT"] . "/G4_AmbienteWeb/Models/CarritoModel.php";
+
+function obtenerColorEstado($estado) {
+    $estado = strtolower(trim($estado));
+    switch ($estado) {
+        case 'pendiente': return 'bg-warning text-dark';
+        case 'empacado':  return 'bg-info text-white';
+        case 'enviado':   return 'bg-primary text-white';
+        case 'entregado': return 'bg-success text-white';
+        case 'cancelado': return 'bg-danger text-white';
+        default:          return 'bg-secondary text-white';
+    }
+}
 
 function MostrarNav(){
     if (session_status() == PHP_SESSION_NONE) session_start();
@@ -19,7 +29,6 @@ function MostrarNav(){
     $safeName    = $userName  ? htmlspecialchars($userName,  ENT_QUOTES, 'UTF-8') : '';
     $safeRol     = $nombreRol ? htmlspecialchars($nombreRol, ENT_QUOTES, 'UTF-8') : '';
 
-    // Rutas absolutas para que funcionen desde cualquier ubicación
     $base = '/G4_AmbienteWeb';
 
     $esAdmin = isset($_SESSION['usuario_rol']) && $_SESSION['usuario_rol'] == 1;
@@ -54,7 +63,7 @@ HTML
             </li>
 HTML;
 
-    // Calcular total de artículos en el carrito
+
     $cartCount = 0;
     $userId = $_SESSION['usuario_id'] ?? null;
     if ($userId) {

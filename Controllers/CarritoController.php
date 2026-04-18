@@ -113,7 +113,6 @@ function FinalizarCarrito()
     $observaciones = $_POST["observaciones"] ?? '';
 
     if (!$idUsuario) {
-        // En lugar de dejar que el sistema redirija a HTML, mandamos error JSON
         header('Content-Type: application/json');
         http_response_code(401); 
         echo json_encode(["error" => "Sesión expirada"]);
@@ -122,19 +121,16 @@ function FinalizarCarrito()
 
     $result = FinalizarCarritoModel($idUsuario, $direccion, $telefono, $metodoPago, $observaciones);
 
-    // Quitamos el IF de X_REQUESTED_WITH para asegurar que devuelva JSON al fetch
     header('Content-Type: application/json');
     echo json_encode($result);
     exit;
 }
 
-// Generic action dispatcher for AJAX or form submissions
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	$action = $_POST['action'] ?? null;
 	switch ($action) {
 		case 'agregar': AgregarAlCarrito(); break;
 		case 'contar':
-			// Devuelve el total de cantidades en el carrito para el usuario autenticado
 			$userId = $_SESSION['usuario_id'] ?? null;
 			header('Content-Type: application/json');
 			if (!$userId) {

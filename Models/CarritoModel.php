@@ -147,25 +147,20 @@ function CancelarCarritoModel($idUsuario)
 
 function FinalizarCarritoModel($idUsuario, $direccion, $telefono, $metodoPago, $observaciones)
 {
-	try
-	{
-		$context = OpenDatabase();
+    try {
+        $context = OpenDatabase();
+        $sp = "CALL sp_FinalizarCarrito('$idUsuario', '$direccion', '$telefono', '$metodoPago', '$observaciones')";
+        $result = $context->query($sp);
 
-		$sp = "CALL sp_FinalizarCarrito('$idUsuario', '$direccion', '$telefono', '$metodoPago', '$observaciones')";
-		$result = $context->query($sp);
+        $datos = null;
+        if ($result && $result->num_rows > 0) {
+            $datos = $result->fetch_assoc();
+        }
 
-		$datos = null;
-		while ($fila = $result->fetch_assoc())
-		{
-			$datos = $fila;
-		}
-
-		CloseDatabase($context);
-		return $datos;
-	}
-	catch (Exception $e)
-	{
-		return null;
-	}
+        CloseDatabase($context);
+        return $datos;
+    } catch (Exception $e) {
+        return null;
+    }
 }
 

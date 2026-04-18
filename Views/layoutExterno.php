@@ -59,3 +59,4 @@ echo
      <script src="../assets/jss/bootstrap.bundle.min.js"></script>
      <script src="../assets/jss/main.js"></script>';
 }
+

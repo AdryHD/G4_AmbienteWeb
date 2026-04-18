@@ -32,7 +32,7 @@ CREATE TABLE `carrito` (
   PRIMARY KEY (`id_carrito`),
   KEY `id_usuario` (`id_usuario`),
   CONSTRAINT `carrito_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,7 +41,7 @@ CREATE TABLE `carrito` (
 
 LOCK TABLES `carrito` WRITE;
 /*!40000 ALTER TABLE `carrito` DISABLE KEYS */;
-INSERT INTO `carrito` VALUES (15,39,'2026-04-11 14:26:26','completado'),(16,40,'2026-04-11 16:48:12','completado'),(17,37,'2026-04-11 17:07:36','activo'),(18,39,'2026-04-11 17:07:50','completado'),(19,39,'2026-04-11 17:13:32','completado'),(20,40,'2026-04-11 17:17:09','completado'),(21,39,'2026-04-12 13:14:52','completado'),(22,39,'2026-04-18 12:50:52','completado');
+INSERT INTO `carrito` VALUES (15,39,'2026-04-11 14:26:26','completado'),(16,40,'2026-04-11 16:48:12','completado'),(17,37,'2026-04-11 17:07:36','activo'),(18,39,'2026-04-11 17:07:50','completado'),(19,39,'2026-04-11 17:13:32','completado'),(20,40,'2026-04-11 17:17:09','completado'),(21,39,'2026-04-12 13:14:52','completado'),(22,39,'2026-04-18 12:50:52','completado'),(23,39,'2026-04-18 13:47:50','activo'),(24,40,'2026-04-18 13:48:24','completado'),(25,40,'2026-04-18 13:59:33','completado'),(26,40,'2026-04-18 14:03:48','completado');
 /*!40000 ALTER TABLE `carrito` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -63,7 +63,7 @@ CREATE TABLE `carrito_detalle` (
   KEY `id_producto` (`id_producto`),
   CONSTRAINT `carrito_detalle_ibfk_1` FOREIGN KEY (`id_carrito`) REFERENCES `carrito` (`id_carrito`),
   CONSTRAINT `carrito_detalle_ibfk_2` FOREIGN KEY (`id_producto`) REFERENCES `productos` (`id_producto`)
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -72,7 +72,7 @@ CREATE TABLE `carrito_detalle` (
 
 LOCK TABLES `carrito_detalle` WRITE;
 /*!40000 ALTER TABLE `carrito_detalle` DISABLE KEYS */;
-INSERT INTO `carrito_detalle` VALUES (21,15,4,1,39990.00),(22,16,2,1,79990.00),(24,18,1,1,29990.00),(25,18,3,1,24990.00),(26,19,1,1,29990.00),(27,19,3,1,24990.00),(28,20,1,1,29990.00),(29,20,4,1,39990.00),(30,21,2,1,79990.00),(31,22,2,1,79990.00),(32,22,4,1,39990.00);
+INSERT INTO `carrito_detalle` VALUES (21,15,4,1,39990.00),(22,16,2,1,79990.00),(24,18,1,1,29990.00),(25,18,3,1,24990.00),(26,19,1,1,29990.00),(27,19,3,1,24990.00),(28,20,1,1,29990.00),(29,20,4,1,39990.00),(30,21,2,1,79990.00),(31,22,2,1,79990.00),(32,22,4,1,39990.00),(35,24,2,1,79990.00),(36,24,3,1,24990.00),(37,25,2,1,79990.00),(38,25,4,1,39990.00),(39,26,3,1,24990.00);
 /*!40000 ALTER TABLE `carrito_detalle` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -120,7 +120,7 @@ CREATE TABLE `pedido_detalle` (
   KEY `id_producto` (`id_producto`),
   CONSTRAINT `pedido_detalle_ibfk_1` FOREIGN KEY (`id_pedido`) REFERENCES `pedidos` (`id_pedido`),
   CONSTRAINT `pedido_detalle_ibfk_2` FOREIGN KEY (`id_producto`) REFERENCES `productos` (`id_producto`)
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -129,7 +129,7 @@ CREATE TABLE `pedido_detalle` (
 
 LOCK TABLES `pedido_detalle` WRITE;
 /*!40000 ALTER TABLE `pedido_detalle` DISABLE KEYS */;
-INSERT INTO `pedido_detalle` VALUES (1,1,3,1,24990.00,24990.00),(2,1,4,1,39990.00,39990.00),(4,2,2,2,79990.00,159980.00),(26,18,1,1,29990.00,29990.00),(27,18,4,1,39990.00,39990.00),(28,19,2,1,79990.00,79990.00),(29,20,2,1,79990.00,79990.00),(30,20,4,1,39990.00,39990.00);
+INSERT INTO `pedido_detalle` VALUES (1,1,3,1,24990.00,24990.00),(2,1,4,1,39990.00,39990.00),(4,2,2,2,79990.00,159980.00),(26,18,1,1,29990.00,29990.00),(27,18,4,1,39990.00,39990.00),(28,19,2,1,79990.00,79990.00),(29,20,2,1,79990.00,79990.00),(30,20,4,1,39990.00,39990.00),(32,21,2,1,79990.00,79990.00),(33,21,3,1,24990.00,24990.00),(35,22,2,1,79990.00,79990.00),(36,22,4,1,39990.00,39990.00),(38,23,3,1,24990.00,24990.00);
 /*!40000 ALTER TABLE `pedido_detalle` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -147,13 +147,13 @@ CREATE TABLE `pedidos` (
   `direccion` varchar(200) NOT NULL,
   `telefono` varchar(20) NOT NULL,
   `total` decimal(10,2) NOT NULL,
-  `estado` enum('pendiente','procesando','enviado','entregado','cancelado') NOT NULL DEFAULT 'pendiente',
+  `estado` enum('pendiente','empacado','enviado','entregado','cancelado') NOT NULL DEFAULT 'pendiente',
   `observaciones` text DEFAULT NULL,
   `metodo_pago` varchar(50) NOT NULL,
   PRIMARY KEY (`id_pedido`),
   KEY `id_usuario` (`id_usuario`),
   CONSTRAINT `pedidos_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -162,7 +162,7 @@ CREATE TABLE `pedidos` (
 
 LOCK TABLES `pedidos` WRITE;
 /*!40000 ALTER TABLE `pedidos` DISABLE KEYS */;
-INSERT INTO `pedidos` VALUES (1,39,'2026-04-09 19:28:41','100 metros norte de la carnicería la Chaira y 75 metros al oeste','60046342',64980.00,'','n/a','Tarjeta'),(2,39,'2026-04-09 19:40:14','100 metros norte de la carnicería la Chaira y 75 metros al oeste','60046342',289940.00,'','n','Tarjeta'),(3,39,'2026-04-09 19:42:34','100 metros norte de la carnicería la Chaira y 75 metros al oeste','60046342',29990.00,'pendiente','n','Transferencia'),(4,39,'2026-04-09 19:49:03','100 metros norte de la carnicería la Chaira y 75 metros al oeste','60046342',79990.00,'pendiente','nd','Tarjeta'),(18,40,'2026-04-11 17:17:23','China Occidental','60046342',69980.00,'','','Tarjeta'),(19,39,'2026-04-12 13:15:59','100 metros norte de la carnicería la Chaira y 75 metros al oeste','62046343',79990.00,'','','Tarjeta'),(20,39,'2026-04-18 12:51:23','Heredia centro','8888-5555',119980.00,'pendiente','122','Transferencia');
+INSERT INTO `pedidos` VALUES (1,39,'2026-04-09 19:28:41','100 metros norte de la carnicería la Chaira y 75 metros al oeste','60046342',64980.00,'entregado','n/a','Tarjeta'),(2,39,'2026-04-09 19:40:14','100 metros norte de la carnicería la Chaira y 75 metros al oeste','60046342',289940.00,'entregado','n','Tarjeta'),(3,39,'2026-04-09 19:42:34','100 metros norte de la carnicería la Chaira y 75 metros al oeste','60046342',29990.00,'pendiente','n','Transferencia'),(4,39,'2026-04-09 19:49:03','100 metros norte de la carnicería la Chaira y 75 metros al oeste','60046342',79990.00,'pendiente','nd','Tarjeta'),(18,40,'2026-04-11 17:17:23','China Occidental','60046342',69980.00,'entregado','','Tarjeta'),(19,39,'2026-04-12 13:15:59','100 metros norte de la carnicería la Chaira y 75 metros al oeste','62046343',79990.00,'pendiente','','Tarjeta'),(20,39,'2026-04-18 12:51:23','Heredia centro','8888-5555',119980.00,'enviado','122','Transferencia'),(21,40,'2026-04-18 13:48:42','Heredia centro','60046345',104980.00,'pendiente','2122','Tarjeta'),(22,40,'2026-04-18 14:00:29','Potrero Cerrado','62046343',119980.00,'pendiente','na','Tarjeta'),(23,40,'2026-04-18 14:04:03','Heredia centro','8888-5555',24990.00,'pendiente','','Transferencia');
 /*!40000 ALTER TABLE `pedidos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -197,7 +197,7 @@ CREATE TABLE `productos` (
 
 LOCK TABLES `productos` WRITE;
 /*!40000 ALTER TABLE `productos` DISABLE KEYS */;
-INSERT INTO `productos` VALUES (1,1,'Camiseta Deportiva Pro','Tecnología Dri-FIT para máximo rendimiento',29990.00,21,'M','Verde','/G4_AmbienteWeb/Views/assets/images/products/01camiseta.png','activo',_binary ''),(2,2,'Zapatos Running Elite','Amortiguación superior para corredores',79990.00,2,'42','Negro','/G4_AmbienteWeb/Views/assets/images/products/02zapatos.png','activo',_binary '\0'),(3,1,'Shorts de Entrenamiento','Ligeros y transpirables',24990.00,25,'L','Gris','/G4_AmbienteWeb/Views/assets/images/products/03short.png','activo',_binary '\0'),(4,3,'Mochila Deportiva','Espacio para todo tu equipo',39990.00,6,'U','Gris','/G4_AmbienteWeb/Views/assets/images/products/04mochila.png','activo',_binary '\0');
+INSERT INTO `productos` VALUES (1,1,'Camiseta Deportiva Pro','Tecnología Dri-FIT para máximo rendimiento',29990.00,21,'M','Verde','/G4_AmbienteWeb/Views/assets/images/products/01camiseta.png','activo',_binary ''),(2,2,'Zapatos Running Elite','Amortiguación superior para corredores',79990.00,0,'42','Negro','/G4_AmbienteWeb/Views/assets/images/products/02zapatos.png','activo',_binary '\0'),(3,1,'Shorts de Entrenamiento','Ligeros y transpirables',24990.00,23,'L','Gris','/G4_AmbienteWeb/Views/assets/images/products/03short.png','activo',_binary '\0'),(4,3,'Mochila Deportiva','Espacio para todo tu equipo',39990.00,5,'U','Gris','/G4_AmbienteWeb/Views/assets/images/products/04mochila.png','activo',_binary '\0');
 /*!40000 ALTER TABLE `productos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1083,4 +1083,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-04-18 13:05:25
+-- Dump completed on 2026-04-18 14:08:04
