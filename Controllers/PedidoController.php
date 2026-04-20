@@ -31,3 +31,14 @@ function ConsultarPedido($idPedido = null)
 
     return $resultado;
 }
+
+function ConsultarHistorial()
+{
+    if (session_status() === PHP_SESSION_NONE) session_start();
+    $idUsuario = $_SESSION['usuario_id'] ?? null;
+    if (!$idUsuario) return [];
+
+    $resultado = ConsultarHistorialModel($idUsuario);
+    if ($resultado == null || empty($resultado)) return [];
+    return $resultado;
+}

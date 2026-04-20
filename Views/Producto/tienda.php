@@ -295,15 +295,28 @@ function agregarAlCarrito(idProducto, nombre, btn) {
 
     fetch('/G4_AmbienteWeb/Controllers/CarritoController.php', {
         method: 'POST',
-        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'X-Requested-With': 'XMLHttpRequest'
+        },
         body: new URLSearchParams({action: 'agregar', id_producto: idProducto, cantidad: 1})
-    }).then(r => r.json())
-    }).then(resp => {
-        _updateCartBadge();
-        setTimeout(() => location.reload(), 700);
-    }).catch(() => {
-        // opcional: mostrar error
-    }).finally(() => {
+    })
+    .then(r => {
+        try { return r.json(); } catch (e) { return null; }
+    })
+    .then(resp => {
+        if (resp && resp.error) {
+            if (typeof showToast === 'function') showToast(resp.error, 'danger', 1200);
+        } else {
+            if (typeof showToast === 'function') showToast('Producto agregado al carrito', 'success', 700);
+            _updateCartBadge();
+        }
+        setTimeout(() => location.reload(), 900);
+    })
+    .catch(() => {
+        if (typeof showToast === 'function') showToast('Error al agregar el producto al carrito.', 'danger', 1200);
+    })
+    .finally(() => {
         setTimeout(() => {
             btn.disabled = false;
             btn.innerHTML = original;

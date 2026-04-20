@@ -103,7 +103,7 @@ HTML;
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{$base}/Views/Producto/consultarPedido.php" style="color: white; font-weight: 600;">
+              <a class="nav-link" href="{$base}/Views/Producto/HistorialCompras.php" style="color: white; font-weight: 600;">
                 <i class="lni lni-package me-1"></i>Pedidos
               </a>
             </li>
@@ -127,8 +127,8 @@ function MostrarHeader(){
 }
 
 function MostrarFooter(){
-echo
-'    <footer style="background: linear-gradient(135deg, #1A1A1A 0%, #000000 100%); color: white; padding: 4rem 0 1rem 0; margin-top: 3rem; border-top: 3px solid #2ECC71;">
+    echo <<<'HTML'
+    <footer style="background: linear-gradient(135deg, #1A1A1A 0%, #000000 100%); color: white; padding: 4rem 0 1rem 0; margin-top: 3rem; border-top: 3px solid #2ECC71;">
       <div class="container">
         <div class="row" style="margin-bottom: 2rem;">
           <div class="col-md-4 mb-4">
@@ -166,7 +166,8 @@ echo
           </div>
         </div>
       </div>
-    </footer>';
+    </footer>
+HTML;
 }
 
 function MostrarCSS(){
@@ -188,12 +189,37 @@ echo
 }
 
 function MostrarJS(){
-echo 
-'    <script src="../assets/jss/jquery-3.7.1.min.js"></script>
-     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
-     <script src="../assets/jss/bootstrap.bundle.min.js"></script>
-     <script src="../assets/jss/main.js"></script>
-     <script src="../funciones/cerrarSesion.js"></script>
-     <script src="https://cdn.datatables.net/2.3.7/js/dataTables.js"></script>
-     <script src="https://cdn.datatables.net/2.3.7/js/dataTables.bootstrap5.js"></script>';
+    echo <<<'HTML'
+    <script src="../assets/jss/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+    <script src="../assets/jss/bootstrap.bundle.min.js"></script>
+    <script src="../assets/jss/main.js"></script>
+    <script src="../funciones/cerrarSesion.js"></script>
+    <script src="https://cdn.datatables.net/2.3.7/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/2.3.7/js/dataTables.bootstrap5.js"></script>
+
+    <style>
+      #app-toast{position:fixed;right:20px;top:20px;z-index:1100;min-width:260px;max-width:360px}
+      #app-toast .toast-box{background:#111;color:#fff;padding:12px 16px;border-radius:10px;box-shadow:0 8px 20px rgba(0,0,0,0.2);display:flex;gap:12px;align-items:center}
+      #app-toast .toast-box.success{background:linear-gradient(135deg,#27a654,#1a7a3f)}
+      #app-toast .toast-box.danger{background:linear-gradient(135deg,#d9534f,#c0392b)}
+    </style>
+
+    <div id="app-toast" aria-live="polite" aria-atomic="true" style="display:none;"></div>
+
+    <script>
+      function showToast(message, type = 'success', timeout = 800){
+        try {
+          const container = document.getElementById('app-toast');
+          if (!container) return;
+          container.style.display = 'block';
+          const box = document.createElement('div');
+          box.className = 'toast-box ' + (type === 'danger' ? 'danger' : 'success');
+          box.innerHTML = '<div style="flex:1">' + (message || '') + '</div>' + '<div style="cursor:pointer;margin-left:8px;opacity:.9" onclick="this.parentNode.remove();">&times;</div>';
+          container.appendChild(box);
+          setTimeout(() => { try{ box.remove(); if (container.children.length === 0) container.style.display = 'none'; }catch(e){} }, timeout);
+        } catch(e){}
+      }
+    </script>
+HTML;
 }

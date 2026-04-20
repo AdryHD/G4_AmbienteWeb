@@ -71,30 +71,33 @@
             })
         })
             .then(async response => {
-                const rawText = await response.text();
+                const textResp = await response.text();
 
-                if (rawText.includes("<!DOCTYPE html>")) {
-                    throw new Error("Tu sesión ha expirado. Ingresa nuevamente.");
+                if (response.status === 401) {
+                    // Sesión expirada
+                    throw new Error('Sesión expirada. Por favor inicia sesión de nuevo.');
                 }
 
                 try {
-                    return JSON.parse(rawText);
+                    return JSON.parse(textResp);
                 } catch (e) {
-                    console.error("Respuesta inesperada:", rawText);
-                    throw new Error("Error en la respuesta del servidor.");
+                    console.error('Respuesta inesperada:', textResp);
+                    throw new Error('Error en la respuesta del servidor.');
                 }
             })
-
             .then(resp => {
                 localStorage.removeItem('datos_envio');
-                alert('¡Pedido finalizado con éxito!');
-                window.location.href = '/G4_AmbienteWeb/Views/Home/inicio.php?msg=pedido_creado';
+                if (typeof showToast === 'function') showToast('¡Pedido finalizado con éxito!', 'success', 1000);
+                // Redirigir al historial de compras sin cerrar sesión
+                setTimeout(() => {
+                    window.location.href = '/G4_AmbienteWeb/Views/Producto/HistorialCompras.php';
+                }, 900);
             })
             .catch(err => {
-                alert(err.message);
+                if (typeof showToast === 'function') showToast(err.message || 'Error al procesar el pago', 'danger', 1800);
                 btn.disabled = false;
-                text.innerText = "Reintentar Pago";
-                loader.style.display = "none";
+                text.innerText = 'Reintentar Pago';
+                loader.style.display = 'none';
             });
     }
 })();
