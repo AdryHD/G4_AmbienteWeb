@@ -8,8 +8,9 @@ if (empty($_SESSION['usuario_logueado'])) {
     exit;
 }
 
-include_once $_SERVER["DOCUMENT_ROOT"] . "/G4_AmbienteWeb/Models/CarritoModel.php";
-include_once $_SERVER["DOCUMENT_ROOT"] . "/G4_AmbienteWeb/Views/Seguridad/role_guard.php";
+require_once __DIR__ . "/../bootstrap.php";
+include_once APP_FS_ROOT . "/Models/CarritoModel.php";
+include_once APP_FS_ROOT . "/Views/Seguridad/role_guard.php";
 
 function obtenerColorEstado($estado) {
     $estado = strtolower(trim($estado));
@@ -30,7 +31,7 @@ function MostrarNav(){
     $safeName    = $userName  ? htmlspecialchars($userName,  ENT_QUOTES, 'UTF-8') : '';
     $safeRol     = $nombreRol ? htmlspecialchars($nombreRol, ENT_QUOTES, 'UTF-8') : '';
 
-    $base = '/G4_AmbienteWeb';
+    $base = APP_BASE_URL;
 
     $esAdmin = isAdmin();
     $gestionProductos = $esAdmin

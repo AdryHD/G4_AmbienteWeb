@@ -3,6 +3,8 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
+require_once __DIR__ . "/../../bootstrap.php";
+
 function isAdmin(): bool
 {
     return isset($_SESSION['usuario_rol']) && (int)$_SESSION['usuario_rol'] === 1;
@@ -16,7 +18,7 @@ function isCliente(): bool
 function requireAdmin(): void
 {
     if (!isAdmin()) {
-        header('Location: /G4_AmbienteWeb/Views/Home/home.php?error=forbidden');
+        header('Location: ' . APP_BASE_URL . '/Views/Home/home.php?error=forbidden');
         exit;
     }
 }
@@ -24,7 +26,7 @@ function requireAdmin(): void
 function requireCliente(): void
 {
     if (!isCliente()) {
-        header('Location: /G4_AmbienteWeb/Views/Home/home.php?error=forbidden');
+        header('Location: ' . APP_BASE_URL . '/Views/Home/home.php?error=forbidden');
         exit;
     }
 }

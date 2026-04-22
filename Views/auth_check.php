@@ -6,16 +6,18 @@ if (php_sapi_name() === 'cli') return; // no ejecutar en CLI
 
 if (session_status() == PHP_SESSION_NONE) session_start();
 
+require_once __DIR__ . "/../bootstrap.php";
+
 $uri = $_SERVER['REQUEST_URI'] ?? '';
 $uri = parse_url($uri, PHP_URL_PATH);
 
 // Extensiones y rutas públicas permitidas (assets, login, registro, procesadores, logout)
 $publicPrefixes = [
-    '/G4_AmbienteWeb/Views/Home/inicio.php',
-    '/G4_AmbienteWeb/Views/Home/registro.php',
-    '/G4_AmbienteWeb/Views/Home/recuperarAcceso.php',
-    '/G4_AmbienteWeb/index.php',
-    '/G4_AmbienteWeb/Database.sql',
+    APP_BASE_URL . '/Views/Home/inicio.php',
+    APP_BASE_URL . '/Views/Home/registro.php',
+    APP_BASE_URL . '/Views/Home/recuperarAcceso.php',
+    APP_BASE_URL . '/index.php',
+    APP_BASE_URL . '/Database.sql',
 ];
 
 $publicContains = [
@@ -50,5 +52,5 @@ if (!empty($_SESSION['usuario_logueado'])) return;
 if (strpos($uri, '/G4_AmbienteWeb/Views/Home/inicio.php') !== false) return;
 
 // Redirigir al login indicando que se requiere autenticación
-header('Location: /G4_AmbienteWeb/Views/Home/inicio.php?error=must_login');
+header('Location: ' . APP_BASE_URL . '/Views/Home/inicio.php?error=must_login');
 exit;

@@ -11,7 +11,8 @@ if ($_flashMsg) {
     $_SESSION['mensaje']      = $_flashMsg;
     $_SESSION['tipo_mensaje'] = $_flashType;
 }
-include_once $_SERVER["DOCUMENT_ROOT"] . "/G4_AmbienteWeb/Controllers/HomeController.php";
+require_once dirname(__DIR__, 2) . "/bootstrap.php";
+include_once APP_FS_ROOT . "/Controllers/HomeController.php";
 ?>
 <!DOCTYPE html>
 <html lang="es">
