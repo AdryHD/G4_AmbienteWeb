@@ -85,7 +85,7 @@ if (!empty($_SESSION['usuario_logueado'])) {
             if (strpos($uri, $ruta) === 0) {
                 http_response_code(403);
                 $_SESSION['error_acceso'] = 'Los administradores no tienen acceso a esta sección.';
-                header('Location: /G4_AmbienteWeb/Views/Home/home.php');
+                header('Location: /G4_AmbienteWeb-main/Views/Home/home.php');
                 exit;
             }
         }
@@ -97,7 +97,7 @@ if (!empty($_SESSION['usuario_logueado'])) {
             if (strpos($uri, $ruta) === 0) {
                 http_response_code(403);
                 $_SESSION['error_acceso'] = 'Los clientes no tienen acceso a esta sección.';
-                header('Location: /G4_AmbienteWeb/Views/Home/home.php');
+                header('Location: /G4_AmbienteWeb-main/Views/Home/home.php');
                 exit;
             }
         }

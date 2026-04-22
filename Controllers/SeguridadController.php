@@ -19,7 +19,7 @@ if (isset($_POST["btnCambiarAcceso"])) {
         session_unset();
         session_destroy();
 
-        $plantilla    = file_get_contents($_SERVER["DOCUMENT_ROOT"] . "/G4_AmbienteWeb/Views/emails/cambioAcceso.html");
+        $plantilla    = file_get_contents($_SERVER["DOCUMENT_ROOT"] . "/G4_AmbienteWeb-main/Views/emails/cambioAcceso.html");
         $cuerpoCorreo = str_replace(
             ["{{NOMBRE}}", "{{FECHA}}"],
             [$nombre, date("d/m/Y H:i")],

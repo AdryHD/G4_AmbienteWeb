@@ -1,6 +1,6 @@
 <?php
-include_once $_SERVER["DOCUMENT_ROOT"] . "/G4_AmbienteWeb/Views/layout.php";
-include_once $_SERVER["DOCUMENT_ROOT"] . "/G4_AmbienteWeb/Controllers/CarritoController.php";
+include_once $_SERVER["DOCUMENT_ROOT"] . "/G4_AmbienteWeb-main/Views/layout.php";
+include_once $_SERVER["DOCUMENT_ROOT"] . "/G4_AmbienteWeb-main/Controllers/CarritoController.php";
 
 if (session_status() === PHP_SESSION_NONE) session_start();
 
@@ -97,9 +97,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // Lógica del botón final
     document.getElementById('btnPasoFinal').addEventListener('click', function() {
         if (datos.metodo_pago === 'Tarjeta') {
-            window.location.href = '/G4_AmbienteWeb/Views/Producto/pagoSimulado.php';
+            window.location.href = '/G4_AmbienteWeb-main/Views/Producto/pagoSimulado.php';
         } else {
-            window.location.href = '/G4_AmbienteWeb/Views/Producto/transferencia.php';
+            window.location.href = '/G4_AmbienteWeb-main/Views/Producto/transferencia.php';
         }
     });
 });

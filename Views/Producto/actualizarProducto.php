@@ -1,6 +1,6 @@
 <?php
-include_once $_SERVER["DOCUMENT_ROOT"] . "/G4_AmbienteWeb/Views/layout.php";
-include_once $_SERVER["DOCUMENT_ROOT"] . "/G4_AmbienteWeb/Controllers/ProductoController.php";
+include_once $_SERVER["DOCUMENT_ROOT"] . "/G4_AmbienteWeb-main/Views/layout.php";
+include_once $_SERVER["DOCUMENT_ROOT"] . "/G4_AmbienteWeb-main/Controllers/ProductoController.php";
 
 $datosProducto         = ConsultarProducto($_GET["id"]);
 $datosCategoriasSelect = ConsultarCategorias();
@@ -149,7 +149,7 @@ $datosCategoriasSelect = ConsultarCategorias();
                                                     style="background:#2ECC71;color:#fff;border-radius:10px;padding:12px;">
                                                 <i class="lni lni-checkmark-circle me-2"></i>Actualizar Producto
                                             </button>
-                                            <a href="/G4_AmbienteWeb/Views/Producto/consultarProductos.php"
+                                            <a href="/G4_AmbienteWeb-main/Views/Producto/consultarProductos.php"
                                                class="btn btn-outline-secondary fw-semibold"
                                                style="border-radius:10px;padding:12px 24px;">
                                                 <i class="lni lni-arrow-left me-1"></i>Cancelar

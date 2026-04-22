@@ -51,7 +51,7 @@ if (!empty($items) && is_array($items)) {
         <div class="col-md-8">
             <h3 class="fw-bold">Resumen del Carrito</h3>
             <?php if (empty($lista)): ?>
-                <div class="alert alert-info mt-4">Tu carrito está vacío. <a href="/G4_AmbienteWeb/Views/Producto/tienda.php">Ir a tienda</a></div>
+                <div class="alert alert-info mt-4">Tu carrito está vacío. <a href="/G4_AmbienteWeb-main/Views/Producto/tienda.php">Ir a tienda</a></div>
             <?php else: ?>
                 <div class="table-responsive mt-4">
                     <table class="table align-middle">
@@ -152,7 +152,7 @@ if (!empty($items) && is_array($items)) {
 <script>
 // Helper to POST form data
 function postAction(data){
-    return fetch('/G4_AmbienteWeb/Controllers/CarritoController.php',{
+    return fetch('/G4_AmbienteWeb-main/Controllers/CarritoController.php',{
         method:'POST',
         headers:{'Content-Type':'application/x-www-form-urlencoded'},
         body: new URLSearchParams(data)
@@ -209,7 +209,7 @@ document.getElementById('formFinalizar').addEventListener('submit', function(e){
     localStorage.setItem('datos_envio', JSON.stringify(infoEnvio));
 
     // Redirigimos a la nueva vista de revisión
-    window.location.href = '/G4_AmbienteWeb/Views/Producto/confirmarPedido.php';
+    window.location.href = '/G4_AmbienteWeb-main/Views/Producto/confirmarPedido.php';
 });
 </script>
 

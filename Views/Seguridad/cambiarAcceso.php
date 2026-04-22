@@ -85,7 +85,7 @@ include_once $_SERVER["DOCUMENT_ROOT"] . "/G4_AmbienteWeb-main/Controllers/Segur
                         </div>
 
                         <div class="text-center mt-3">
-                            <a href="/G4_AmbienteWeb/Views/Seguridad/cambiarPerfil.php" class="text-decoration-none" style="color:#2ECC71;">
+                            <a href="/G4_AmbienteWeb-main/Views/Seguridad/cambiarPerfil.php" class="text-decoration-none" style="color:#2ECC71;">
                                 <i class="lni lni-arrow-left me-1"></i>Volver a mi perfil
                             </a>
                         </div>

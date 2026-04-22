@@ -4,7 +4,7 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 if (empty($_SESSION['usuario_logueado'])) {
-    header('Location: /G4_AmbienteWeb/Views/Home/inicio.php?error=must_login');
+    header('Location: /G4_AmbienteWeb-main/Views/Home/inicio.php?error=must_login');
     exit;
 }
 

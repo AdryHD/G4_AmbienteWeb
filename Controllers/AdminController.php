@@ -10,7 +10,7 @@ if (session_status() === PHP_SESSION_NONE) {
 function ValidarAccesoAdmin()
 {
     if (!isset($_SESSION['usuario_logueado']) || $_SESSION['usuario_logueado'] !== true) {
-        header("Location: /G4_AmbienteWeb/Views/Home/inicio.php");
+        header("Location: /G4_AmbienteWeb-main/Views/Home/inicio.php");
         exit;
     }
     
@@ -19,7 +19,7 @@ function ValidarAccesoAdmin()
         http_response_code(403);
         $_SESSION["mensaje"]      = "No tienes permiso para acceder al panel administrativo.";
         $_SESSION["tipo_mensaje"] = "danger";
-        header("Location: /G4_AmbienteWeb/Views/Home/home.php");
+        header("Location: /G4_AmbienteWeb-main/Views/Home/home.php");
         exit;
     }
 }

@@ -51,7 +51,7 @@ function TieneRol($rolId)
  * Requerir que el usuario sea administrador, sino redirige
  * @param string $urlRedireccion URL a la que redirigir si no es admin
  */
-function RequiereAdmin($urlRedireccion = '/G4_AmbienteWeb/Views/Home/home.php')
+function RequiereAdmin($urlRedireccion = '/G4_AmbienteWeb-main/Views/Home/home.php')
 {
     if (!EsAdmin()) {
         http_response_code(403);
@@ -65,7 +65,7 @@ function RequiereAdmin($urlRedireccion = '/G4_AmbienteWeb/Views/Home/home.php')
  * Requerir que el usuario sea cliente, sino redirige
  * @param string $urlRedireccion URL a la que redirigir si no es cliente
  */
-function RequiereCliente($urlRedireccion = '/G4_AmbienteWeb/Views/Home/home.php')
+function RequiereCliente($urlRedireccion = '/G4_AmbienteWeb-main/Views/Home/home.php')
 {
     if (!EsCliente()) {
         http_response_code(403);
@@ -80,7 +80,7 @@ function RequiereCliente($urlRedireccion = '/G4_AmbienteWeb/Views/Home/home.php'
  * @param int $rolId ID del rol requerido
  * @param string $urlRedireccion URL a la que redirigir si no tiene el rol
  */
-function RequiereRol($rolId, $urlRedireccion = '/G4_AmbienteWeb/Views/Home/home.php')
+function RequiereRol($rolId, $urlRedireccion = '/G4_AmbienteWeb-main/Views/Home/home.php')
 {
     if (!TieneRol($rolId)) {
         http_response_code(403);

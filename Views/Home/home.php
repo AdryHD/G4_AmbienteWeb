@@ -188,7 +188,7 @@ $productosDestacados = array_slice($productosDestacados, 0, 4);
           <div class="card-body p-5 text-center" style="background: linear-gradient(135deg, #2ECC71 0%, #27a654 100%);">
             <h2 class="display-5 fw-bold mb-3" style="color: white; font-size: 2.5rem;">¡Ofertas Especiales del Mes!</h2>
             <p class="lead mb-4" style="color: rgba(255, 255, 255, 0.9); font-size: 1.15rem; font-weight: 500;">Aprovecha hasta 50% de descuento en productos seleccionados</p>
-            <a href="/G4_AmbienteWeb/Views/Producto/tienda.php?cat=99" class="btn btn-dark btn-lg" style="background: #1A1A1A; border: none; color: white; font-weight: 600; padding: 14px 32px; transition: all 0.3s ease;">
+            <a href="/G4_AmbienteWeb-main/Views/Producto/tienda.php?cat=99" class="btn btn-dark btn-lg" style="background: #1A1A1A; border: none; color: white; font-weight: 600; padding: 14px 32px; transition: all 0.3s ease;">
               <i class="lni lni-offer me-2"></i>Ver Todas las Ofertas
             </a>
           </div>
@@ -212,7 +212,7 @@ $productosDestacados = array_slice($productosDestacados, 0, 4);
           btn.innerHTML = '<i class="lni lni-checkmark-circle me-1"></i>Agregado';
           btn.style.background = 'linear-gradient(135deg,#27a654,#1a7a3f)';
 
-          fetch('/G4_AmbienteWeb/Controllers/CarritoController.php', {
+          fetch('/G4_AmbienteWeb-main/Controllers/CarritoController.php', {
             method: 'POST',
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
             body: new URLSearchParams({action: 'agregar', id_producto: idProducto, cantidad: 1})

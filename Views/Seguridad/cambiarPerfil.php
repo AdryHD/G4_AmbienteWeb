@@ -107,7 +107,7 @@ $datosUsuario = ConsultarUsuario();
                         </div>
 
                         <div class="text-center mt-3">
-                            <a href="/G4_AmbienteWeb/Views/Seguridad/cambiarAcceso.php" class="text-decoration-none" style="color:#2ECC71;">
+                            <a href="/G4_AmbienteWeb-main/Views/Seguridad/cambiarAcceso.php" class="text-decoration-none" style="color:#2ECC71;">
                                 <i class="lni lni-lock me-1"></i>Cambiar contraseña
                             </a>
                         </div>

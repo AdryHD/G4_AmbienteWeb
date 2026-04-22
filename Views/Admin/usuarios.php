@@ -14,8 +14,8 @@ $usuarios = ListarUsuarios();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel Administrativo - Gestión de Usuarios | PowerZone</title>
-    <link rel="stylesheet" href="/G4_AmbienteWeb/Views/assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/G4_AmbienteWeb/Views/assets/css/style.css">
+    <link rel="stylesheet" href="/G4_AmbienteWeb-main/Views/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/G4_AmbienteWeb-main/Views/assets/css/style.css">
     <style>
         .admin-header {
             background: linear-gradient(135deg, #1e3a5f 0%, #2d5a8c 100%);
