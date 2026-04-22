@@ -1,7 +1,11 @@
 <?php
 // Asegúrate de que la función obtenerColorEstado() esté en layout.php
 include_once $_SERVER["DOCUMENT_ROOT"] . "/G4_AmbienteWeb/Views/layout.php";
+include_once $_SERVER["DOCUMENT_ROOT"] . "/G4_AmbienteWeb/Views/Seguridad/role_guard.php";
 include_once $_SERVER["DOCUMENT_ROOT"] . "/G4_AmbienteWeb/Controllers/PedidoController.php";
+
+// Gestión de pedidos es solo para administrador
+requireAdmin();
 
 $idPedido = $_GET["id"] ?? null;
 $datos = ConsultarPedido($idPedido);

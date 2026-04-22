@@ -9,6 +9,7 @@ if (empty($_SESSION['usuario_logueado'])) {
 }
 
 include_once $_SERVER["DOCUMENT_ROOT"] . "/G4_AmbienteWeb/Models/CarritoModel.php";
+include_once $_SERVER["DOCUMENT_ROOT"] . "/G4_AmbienteWeb/Views/Seguridad/role_guard.php";
 
 function obtenerColorEstado($estado) {
     $estado = strtolower(trim($estado));
@@ -31,9 +32,13 @@ function MostrarNav(){
 
     $base = '/G4_AmbienteWeb';
 
-    $esAdmin = isset($_SESSION['usuario_rol']) && $_SESSION['usuario_rol'] == 1;
+    $esAdmin = isAdmin();
     $gestionProductos = $esAdmin
         ? "<li><a class=\"dropdown-item\" href=\"{$base}/Views/Producto/consultarProductos.php\"><i class=\"lni lni-shopping-basket me-2\"></i>Gestión Productos</a></li>"
+        : '';
+
+    $gestionUsuarios = $esAdmin
+        ? "<li><a class=\"dropdown-item\" href=\"{$base}/Views/Seguridad/gestionarUsuarios.php\"><i class=\"lni lni-users me-2\"></i>Gestión Usuarios</a></li>"
         : '';
 
     $userMenu = $userName ? <<<HTML
@@ -45,6 +50,7 @@ function MostrarNav(){
               <ul class="dropdown-menu dropdown-menu-end" style="border-radius: 10px; border: 2px solid #2ECC71; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); margin-top: 10px;">
                 <li><a class="dropdown-item" href="{$base}/Views/Seguridad/cambiarPerfil.php"><i class="lni lni-user me-2"></i>Cambiar Perfil</a></li>
                 <li><a class="dropdown-item" href="{$base}/Views/Seguridad/cambiarAcceso.php"><i class="lni lni-lock me-2"></i>Cambiar Contraseña</a></li>
+                {$gestionUsuarios}
                 {$gestionProductos}
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="#" onclick="CerrarSesion(); return false;"><i class="lni lni-exit me-2"></i>Cerrar Sesión</a></li>
@@ -66,7 +72,7 @@ HTML;
 
     $cartCount = 0;
     $userId = $_SESSION['usuario_id'] ?? null;
-    if ($userId) {
+    if ($userId && !$esAdmin) {
       $items = ObtenerCarritoModel($userId);
       if (is_array($items)) {
         foreach ($items as $it) {
@@ -75,18 +81,20 @@ HTML;
       }
     }
 
-    echo <<<HTML
-    <nav class="navbar navbar-expand-lg sticky-top shadow" style="background: linear-gradient(135deg, #2ECC71 0%, #27a654 100%);">
-      <div class="container-fluid">
-        <a class="navbar-brand fw-bold" href="{$base}/Views/Home/home.php" style="color: white; font-size: 1.4rem; letter-spacing: -0.5px; display: flex; align-items: center; gap: 10px;">
-          <img src="{$base}/Views/assets/images/00logo.png" alt="PowerZone Logo" style="height: 45px; width: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.2);">
-          <span style="display: inline-block;">PowerZone</span>
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" style="border-color: rgba(255,255,255,0.5);">
-          <span class="navbar-toggler-icon" style="background-image: url(\"data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='white' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e\");"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav me-auto">
+    $navLinks = $esAdmin
+        ? <<<HTML
+            <li class="nav-item">
+              <a class="nav-link" href="{$base}/Views/Home/home.php" style="color: white; font-weight: 600;">
+                <i class="lni lni-home me-1"></i>Inicio
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{$base}/Views/Producto/consultarPedido.php" style="color: white; font-weight: 600;">
+                <i class="lni lni-package me-1"></i>Pedidos
+              </a>
+            </li>
+HTML
+        : <<<HTML
             <li class="nav-item">
               <a class="nav-link" href="{$base}/Views/Home/home.php" style="color: white; font-weight: 600;">
                 <i class="lni lni-home me-1"></i>Inicio
@@ -107,13 +115,32 @@ HTML;
                 <i class="lni lni-package me-1"></i>Pedidos
               </a>
             </li>
-          </ul>
-          <ul class="navbar-nav">
+HTML;
+
+    $cartLink = $esAdmin ? '' : <<<HTML
             <li class="nav-item">
               <a class="nav-link" href="{$base}/Views/Producto/carrito.php" style="color: white; font-weight: 600;">
                 <i class="lni lni-cart me-1"></i>Carrito <span id="cart-badge" class="badge bg-danger" style="font-size: 0.7rem; padding: 3px 6px;">{$cartCount}</span>
               </a>
             </li>
+HTML;
+
+    echo <<<HTML
+    <nav class="navbar navbar-expand-lg sticky-top shadow" style="background: linear-gradient(135deg, #2ECC71 0%, #27a654 100%);">
+      <div class="container-fluid">
+        <a class="navbar-brand fw-bold" href="{$base}/Views/Home/home.php" style="color: white; font-size: 1.4rem; letter-spacing: -0.5px; display: flex; align-items: center; gap: 10px;">
+          <img src="{$base}/Views/assets/images/00logo.png" alt="PowerZone Logo" style="height: 45px; width: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.2);">
+          <span style="display: inline-block;">PowerZone</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" style="border-color: rgba(255,255,255,0.5);">
+          <span class="navbar-toggler-icon" style="background-image: url(\"data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='white' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e\");"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav me-auto">
+{$navLinks}
+          </ul>
+          <ul class="navbar-nav">
+{$cartLink}
 {$userMenu}
           </ul>
         </div>

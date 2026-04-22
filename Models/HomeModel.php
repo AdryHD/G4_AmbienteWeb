@@ -7,7 +7,8 @@ function RegistrarModel($identificacion, $nombre, $contrasenna, $correoElectroni
     {
         $context = OpenDatabase();
 
-        $sp = "CALL sp_Registrar('$nombre', '$correoElectronico', '$contrasenna', '$identificacion')";
+        $hash = password_hash($contrasenna, PASSWORD_DEFAULT);
+        $sp = "CALL sp_Registrar('$nombre', '$correoElectronico', '$hash', '$identificacion')";
         $result = $context->query($sp);
 
         CloseDatabase($context);
@@ -36,9 +37,29 @@ function IniciarSesionModel($correoElectronico, $contrasenna)
 
         CloseDatabase($context);
 
-        if ($datos && $datos["contrasena"] === $contrasenna) {
+        if (!$datos || empty($datos["contrasena"])) return null;
+
+        $stored = (string)$datos["contrasena"];
+
+        // Caso normal: hash seguro
+        if (password_verify($contrasenna, $stored)) {
+            if (password_needs_rehash($stored, PASSWORD_DEFAULT)) {
+                $newHash = password_hash($contrasenna, PASSWORD_DEFAULT);
+                include_once $_SERVER["DOCUMENT_ROOT"] . "/G4_AmbienteWeb/Models/SeguridadModel.php";
+                ActualizarContrasenaModel($newHash, (int)$datos["id_usuario"]);
+            }
             return $datos;
         }
+
+        // Migración automática: si estaba en texto plano, validar y convertir a hash
+        if (hash_equals($stored, (string)$contrasenna)) {
+            $newHash = password_hash($contrasenna, PASSWORD_DEFAULT);
+            include_once $_SERVER["DOCUMENT_ROOT"] . "/G4_AmbienteWeb/Models/SeguridadModel.php";
+            ActualizarContrasenaModel($newHash, (int)$datos["id_usuario"]);
+            $datos["contrasena"] = $newHash;
+            return $datos;
+        }
+
         return null;
     }
     catch (Exception $e)

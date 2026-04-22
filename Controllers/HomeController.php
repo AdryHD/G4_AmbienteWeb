@@ -58,7 +58,8 @@ if (isset($_POST["btnRecuperarAcceso"])) {
     if ($result) {
 
         $nuevaContrasena = GenerarContrasena();
-        $actualizacion   = ActualizarContrasenaModel($nuevaContrasena, $result["id_usuario"]);
+        $hashNueva       = password_hash($nuevaContrasena, PASSWORD_DEFAULT);
+        $actualizacion   = ActualizarContrasenaModel($hashNueva, $result["id_usuario"]);
 
         if ($actualizacion) {
 

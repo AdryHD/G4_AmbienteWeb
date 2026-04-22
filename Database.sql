@@ -238,6 +238,7 @@ CREATE TABLE `usuarios` (
   `nombre` varchar(100) NOT NULL,
   `correo` varchar(100) NOT NULL,
   `contrasena` varchar(255) NOT NULL,
+  `password_updated_at` datetime DEFAULT NULL,
   `estado` enum('activo','inactivo') NOT NULL DEFAULT 'activo',
   `id_rol` int(11) NOT NULL,
   `fecha_registro` datetime NOT NULL DEFAULT current_timestamp(),
@@ -337,7 +338,8 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_ActualizarContrasena`(
 )
 BEGIN
     UPDATE  usuarios
-    SET     contrasena = pNuevaContrasena
+    SET     contrasena = pNuevaContrasena,
+            password_updated_at = NOW()
     WHERE   id_usuario = pIdUsuario;
 END ;;
 DELIMITER ;
@@ -981,7 +983,59 @@ BEGIN
 
     INSERT INTO usuarios(cedula, nombre, correo, contrasena, estado, id_rol)
     VALUES (pCedula, pNombre, pCorreoElectronico, pContrasenna, 'activo', vIdRol);
+
+    UPDATE usuarios
+    SET password_updated_at = NOW()
+    WHERE id_usuario = LAST_INSERT_ID();
 END ;;
+
+/*!50003 DROP PROCEDURE IF EXISTS `sp_ListarUsuarios` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_ListarUsuarios`()
+BEGIN
+    SELECT u.id_usuario, u.nombre, u.correo, u.estado, u.id_rol, r.nombre AS nombre_rol, u.fecha_registro
+    FROM usuarios u
+    INNER JOIN roles r ON u.id_rol = r.id_rol
+    ORDER BY u.id_usuario ASC;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+
+/*!50003 DROP PROCEDURE IF EXISTS `sp_ActualizarRolUsuario` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_ActualizarRolUsuario`(
+    IN pIdUsuario INT,
+    IN pIdRol INT
+)
+BEGIN
+    UPDATE usuarios
+    SET id_rol = pIdRol
+    WHERE id_usuario = pIdUsuario;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;

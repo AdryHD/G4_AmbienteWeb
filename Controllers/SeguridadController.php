@@ -13,7 +13,8 @@ if (isset($_POST["btnCambiarAcceso"])) {
     $correo           = $_SESSION["usuario_email"];
     $nombre           = $_SESSION["usuario_nombre"];
 
-    $result = ActualizarContrasenaModel($nuevaContrasena, $id_usuario);
+    $hashNueva = password_hash($nuevaContrasena, PASSWORD_DEFAULT);
+    $result = ActualizarContrasenaModel($hashNueva, $id_usuario);
 
     if ($result) {
         session_unset();
@@ -61,4 +62,44 @@ function ConsultarUsuario()
 {
     $id_usuario = $_SESSION["usuario_id"];
     return ConsultarUsuarioModel($id_usuario);
+}
+
+if (isset($_POST["btnActualizarRol"])) {
+    if (session_status() === PHP_SESSION_NONE) session_start();
+
+    $miId = (int)($_SESSION["usuario_id"] ?? 0);
+    $miRol = (int)($_SESSION["usuario_rol"] ?? 0);
+
+    if ($miRol !== 1) {
+        header("Location: /G4_AmbienteWeb/Views/Home/home.php?error=forbidden");
+        exit;
+    }
+
+    $idUsuario = (int)($_POST["id_usuario"] ?? 0);
+    $nuevoRol  = (int)($_POST["id_rol"] ?? 0);
+
+    if ($idUsuario <= 0 || ($nuevoRol !== 1 && $nuevoRol !== 2)) {
+        $_SESSION["mensaje"] = "Datos inválidos para actualizar el rol.";
+        $_SESSION["tipo_mensaje"] = "danger";
+        header("Location: /G4_AmbienteWeb/Views/Seguridad/gestionarUsuarios.php");
+        exit;
+    }
+
+    if ($idUsuario === $miId) {
+        $_SESSION["mensaje"] = "No puedes modificar tu propio rol.";
+        $_SESSION["tipo_mensaje"] = "danger";
+        header("Location: /G4_AmbienteWeb/Views/Seguridad/gestionarUsuarios.php");
+        exit;
+    }
+
+    $ok = ActualizarRolUsuarioModel($idUsuario, $nuevoRol);
+    $_SESSION["mensaje"] = $ok ? "Rol actualizado correctamente." : "No se pudo actualizar el rol.";
+    $_SESSION["tipo_mensaje"] = $ok ? "success" : "danger";
+    header("Location: /G4_AmbienteWeb/Views/Seguridad/gestionarUsuarios.php");
+    exit;
+}
+
+function ListarUsuarios()
+{
+    return ListarUsuariosModel();
 }

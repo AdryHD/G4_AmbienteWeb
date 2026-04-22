@@ -3,9 +3,13 @@ header('Cache-Control: no-store, no-cache, must-revalidate');
 header('Pragma: no-cache');
 header('Expires: 0');
 include_once $_SERVER["DOCUMENT_ROOT"] . "/G4_AmbienteWeb/Views/layout.php";
+include_once $_SERVER["DOCUMENT_ROOT"] . "/G4_AmbienteWeb/Views/Seguridad/role_guard.php";
 include_once $_SERVER["DOCUMENT_ROOT"] . "/G4_AmbienteWeb/Controllers/CarritoController.php";
 
 if (session_status() === PHP_SESSION_NONE) session_start();
+
+// Admin no tiene acceso a carrito
+requireCliente();
 
 $items = ObtenerCarrito();
 
