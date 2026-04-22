@@ -1,6 +1,8 @@
 <?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 include_once $_SERVER["DOCUMENT_ROOT"] . "/G4_AmbienteWeb/Views/layout.php";
-if (session_status() === PHP_SESSION_NONE) session_start();
 ?>
 <!DOCTYPE html>
 <html lang="es">

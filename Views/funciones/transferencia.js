@@ -58,7 +58,7 @@
         .then(resp => {
             localStorage.removeItem('datos_envio');
             alert('Trasnferencia enviada, en breve un empleado verificará su validez.');
-            window.location.href = '/G4_AmbienteWeb/Views/Home/inicio.php?msg=pedido_pendiente';
+            window.location.href = '/G4_AmbienteWeb/Views/Producto/HistorialCompras.php';
         })
         .catch(err => {
             alert(err.message);
