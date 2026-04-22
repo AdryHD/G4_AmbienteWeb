@@ -4,7 +4,8 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 if (empty($_SESSION['usuario_logueado'])) {
-    header('Location: /G4_AmbienteWeb/Views/Home/inicio.php?error=must_login');
+    require_once __DIR__ . "/../bootstrap.php";
+    header('Location: ' . APP_BASE_URL . '/Views/Home/inicio.php?error=must_login');
     exit;
 }
 
@@ -217,7 +218,9 @@ echo
 }
 
 function MostrarJS(){
-    echo <<<'HTML'
+    $base = htmlspecialchars(APP_BASE_URL, ENT_QUOTES, 'UTF-8');
+    echo <<<HTML
+    <script>window.APP_BASE_URL = "{$base}";</script>
     <script src="../assets/jss/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
     <script src="../assets/jss/bootstrap.bundle.min.js"></script>

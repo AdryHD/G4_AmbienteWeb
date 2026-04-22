@@ -3,21 +3,29 @@
 header('Cache-Control: no-store, no-cache, must-revalidate');
 header('Pragma: no-cache');
 header('Expires: 0');
-include_once $_SERVER["DOCUMENT_ROOT"] . "/G4_AmbienteWeb/Views/layout.php";
-include_once $_SERVER["DOCUMENT_ROOT"] . "/G4_AmbienteWeb/Controllers/ProductoController.php";
+require_once __DIR__ . "/../../bootstrap.php";
+include_once APP_FS_ROOT . "/Views/layout.php";
+include_once APP_FS_ROOT . "/Controllers/ProductoController.php";
+include_once APP_FS_ROOT . "/Views/Seguridad/role_guard.php";
 
-$datosProductos = ConsultarProductos();
+$esAdmin = isAdmin();
+
+$datosProductos = [];
 $productosDestacados = [];
 
-if (!empty($datosProductos)) {
-  foreach ($datosProductos as $producto) {
-    if (($producto['estado'] ?? '') === 'activo') {
-      $productosDestacados[] = $producto;
-    }
-  }
-}
+if (!$esAdmin) {
+    $datosProductos = ConsultarProductos();
 
-$productosDestacados = array_slice($productosDestacados, 0, 4);
+    if (!empty($datosProductos)) {
+        foreach ($datosProductos as $producto) {
+            if (($producto['estado'] ?? '') === 'activo') {
+                $productosDestacados[] = $producto;
+            }
+        }
+    }
+
+    $productosDestacados = array_slice($productosDestacados, 0, 4);
+}
 ?>
 
 <!DOCTYPE html>
@@ -40,6 +48,31 @@ $productosDestacados = array_slice($productosDestacados, 0, 4);
     }
     ?>
 
+    <?php if ($esAdmin): ?>
+      <div class="container py-4">
+        <div class="alert alert-dark border-success" style="border-width:2px;">
+          <div class="d-flex flex-column flex-lg-row align-items-lg-center justify-content-between gap-3">
+            <div>
+              <h4 class="mb-1"><i class="lni lni-shield me-2"></i>Panel de administración</h4>
+              <div class="text-muted">
+                Estás autenticado como <strong>ADMIN</strong> (<code>id_rol = 1</code>). Aquí gestionas pedidos, productos y usuarios.
+              </div>
+            </div>
+            <div class="d-flex flex-wrap gap-2">
+              <a class="btn btn-success" href="<?php echo APP_BASE_URL; ?>/Views/Producto/consultarPedido.php"><i class="lni lni-package me-1"></i>Pedidos</a>
+              <a class="btn btn-outline-success" href="<?php echo APP_BASE_URL; ?>/Views/Producto/consultarProductos.php"><i class="lni lni-shopping-basket me-1"></i>Productos</a>
+              <a class="btn btn-outline-light border" href="<?php echo APP_BASE_URL; ?>/Views/Seguridad/gestionarUsuarios.php"><i class="lni lni-users me-1"></i>Usuarios</a>
+            </div>
+          </div>
+          <hr class="my-3">
+          <div class="small text-muted mb-0">
+            Nota: la experiencia de <strong>tienda/carrito</strong> está oculta para administradores (sigue bloqueada en servidor con <code>requireCliente()</code>).
+          </div>
+        </div>
+      </div>
+    <?php endif; ?>
+
+    <?php if (!$esAdmin): ?>
     <!-- Hero Section -->
     <section class="hero-section py-2" style="background: linear-gradient(135deg, #1A1A1A 0%, #000000 100%); position: relative; overflow: hidden;">
       <!-- Background decoration -->
@@ -188,13 +221,14 @@ $productosDestacados = array_slice($productosDestacados, 0, 4);
           <div class="card-body p-5 text-center" style="background: linear-gradient(135deg, #2ECC71 0%, #27a654 100%);">
             <h2 class="display-5 fw-bold mb-3" style="color: white; font-size: 2.5rem;">¡Ofertas Especiales del Mes!</h2>
             <p class="lead mb-4" style="color: rgba(255, 255, 255, 0.9); font-size: 1.15rem; font-weight: 500;">Aprovecha hasta 50% de descuento en productos seleccionados</p>
-            <a href="/G4_AmbienteWeb/Views/Producto/tienda.php?cat=99" class="btn btn-dark btn-lg" style="background: #1A1A1A; border: none; color: white; font-weight: 600; padding: 14px 32px; transition: all 0.3s ease;">
+            <a href="<?php echo APP_BASE_URL; ?>/Views/Producto/tienda.php?cat=99" class="btn btn-dark btn-lg" style="background: #1A1A1A; border: none; color: white; font-weight: 600; padding: 14px 32px; transition: all 0.3s ease;">
               <i class="lni lni-offer me-2"></i>Ver Todas las Ofertas
             </a>
           </div>
         </div>
       </div>
     </section>
+    <?php endif; ?>
 
     <?php MostrarFooter(); ?>
 
@@ -207,12 +241,15 @@ $productosDestacados = array_slice($productosDestacados, 0, 4);
       });
 
       function agregarAlCarrito(idProducto, nombre, btn) {
+          <?php if ($esAdmin): ?>
+            return;
+          <?php endif; ?>
           const original = btn.innerHTML;
           btn.disabled = true;
           btn.innerHTML = '<i class="lni lni-checkmark-circle me-1"></i>Agregado';
           btn.style.background = 'linear-gradient(135deg,#27a654,#1a7a3f)';
 
-          fetch('/G4_AmbienteWeb/Controllers/CarritoController.php', {
+          fetch('<?php echo APP_BASE_URL; ?>/Controllers/CarritoController.php', {
             method: 'POST',
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
             body: new URLSearchParams({action: 'agregar', id_producto: idProducto, cantidad: 1})

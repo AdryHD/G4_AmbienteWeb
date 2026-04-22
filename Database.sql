@@ -256,7 +256,7 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (37,'000000000','Administrador','admin@powerzone.com','123456','activo',1,'2026-04-08 00:27:27',NULL),(38,'118870741','DARRY ANTONIO OPORTA VILLEGAS','doporta70741@ufide.ac.cr','123456','activo',2,'2026-04-07 18:27:57',NULL),(39,'305440788','FABIAN ALBERTO ARAYA BALLESTERO','fabianballester24@gmail.com','123456','activo',2,'2026-04-09 19:22:09',NULL),(40,'100299721','Daniel Suaréz','daniel@gmail.com','123456','activo',2,'2026-04-11 16:47:56',NULL);
+INSERT INTO `usuarios` VALUES (37,'000000000','Administrador','admin@powerzone.com','123456',NULL,'activo',1,'2026-04-08 00:27:27',NULL),(38,'118870741','DARRY ANTONIO OPORTA VILLEGAS','doporta70741@ufide.ac.cr','123456',NULL,'activo',2,'2026-04-07 18:27:57',NULL),(39,'305440788','FABIAN ALBERTO ARAYA BALLESTERO','fabianballester24@gmail.com','123456',NULL,'activo',2,'2026-04-09 19:22:09',NULL),(40,'100299721','Daniel Suaréz','daniel@gmail.com','123456',NULL,'activo',2,'2026-04-11 16:47:56',NULL);
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -989,6 +989,7 @@ BEGIN
     WHERE id_usuario = LAST_INSERT_ID();
 END ;;
 
+DELIMITER ;
 /*!50003 DROP PROCEDURE IF EXISTS `sp_ListarUsuarios` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
