@@ -6,11 +6,11 @@ header('Expires: 0');
 if (session_status() === PHP_SESSION_NONE) session_start();
 
 // RBAC - Solo clientes pueden ver sus pedidos
-include_once $_SERVER["DOCUMENT_ROOT"] . "/G4_AmbienteWeb/Views/funciones/rbac.php";
-RequiereCliente('/G4_AmbienteWeb/Views/Home/home.php');
+include_once $_SERVER["DOCUMENT_ROOT"] . "/G4_AmbienteWeb-main/Views/funciones/rbac.php";
+RequiereCliente('/G4_AmbienteWeb-main/Views/Home/home.php');
 
-include_once $_SERVER["DOCUMENT_ROOT"] . "/G4_AmbienteWeb/Views/layout.php";
-include_once $_SERVER["DOCUMENT_ROOT"] . "/G4_AmbienteWeb/Controllers/PedidoController.php";
+include_once $_SERVER["DOCUMENT_ROOT"] . "/G4_AmbienteWeb-main/Views/layout.php";
+include_once $_SERVER["DOCUMENT_ROOT"] . "/G4_AmbienteWeb-main/Controllers/PedidoController.php";
 
 $datos = ConsultarHistorial();
 

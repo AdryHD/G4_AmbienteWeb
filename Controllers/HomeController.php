@@ -1,7 +1,7 @@
 <?php
-include_once $_SERVER["DOCUMENT_ROOT"] . "/G4_AmbienteWeb/Controllers/UtilitarioController.php";
-include_once $_SERVER["DOCUMENT_ROOT"] . "/G4_AmbienteWeb/Models/HomeModel.php";
-include_once $_SERVER["DOCUMENT_ROOT"] . "/G4_AmbienteWeb/Models/SeguridadModel.php";
+include_once $_SERVER["DOCUMENT_ROOT"] . "/G4_AmbienteWeb-main/Controllers/UtilitarioController.php";
+include_once $_SERVER["DOCUMENT_ROOT"] . "/G4_AmbienteWeb-main/Models/HomeModel.php";
+include_once $_SERVER["DOCUMENT_ROOT"] . "/G4_AmbienteWeb-main/Models/SeguridadModel.php";
 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();

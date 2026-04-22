@@ -2,11 +2,11 @@
 if (session_status() === PHP_SESSION_NONE) session_start();
 
 // RBAC - Solo administradores pueden acceder a la gestión de productos
-include_once $_SERVER["DOCUMENT_ROOT"] . "/G4_AmbienteWeb/Views/funciones/rbac.php";
-RequiereAdmin('/G4_AmbienteWeb/Views/Home/home.php');
+include_once $_SERVER["DOCUMENT_ROOT"] . "/G4_AmbienteWeb-main/Views/funciones/rbac.php";
+RequiereAdmin('/G4_AmbienteWeb-main/Views/Home/home.php');
 
-include_once $_SERVER["DOCUMENT_ROOT"] . "/G4_AmbienteWeb/Views/layout.php";
-include_once $_SERVER["DOCUMENT_ROOT"] . "/G4_AmbienteWeb/Controllers/ProductoController.php";
+include_once $_SERVER["DOCUMENT_ROOT"] . "/G4_AmbienteWeb-main/Views/layout.php";
+include_once $_SERVER["DOCUMENT_ROOT"] . "/G4_AmbienteWeb-main/Controllers/ProductoController.php";
 
 $datosProductos        = ConsultarProductos();
 $datosCategoriasSelect = ConsultarCategorias();

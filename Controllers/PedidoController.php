@@ -1,5 +1,5 @@
 <?php
-include_once $_SERVER["DOCUMENT_ROOT"] . "/G4_AmbienteWeb/Models/PedidoModel.php";
+include_once $_SERVER["DOCUMENT_ROOT"] . "/G4_AmbienteWeb-main/Models/PedidoModel.php";
 
 if (isset($_POST["btnCambiarEstado"])) {
     $idPedido = $_POST["idPedido"];

@@ -1,6 +1,6 @@
 <?php
-include_once $_SERVER["DOCUMENT_ROOT"] . "/G4_AmbienteWeb/Controllers/UtilitarioController.php";
-include_once $_SERVER["DOCUMENT_ROOT"] . "/G4_AmbienteWeb/Models/CarritoModel.php";
+include_once $_SERVER["DOCUMENT_ROOT"] . "/G4_AmbienteWeb-main/Controllers/UtilitarioController.php";
+include_once $_SERVER["DOCUMENT_ROOT"] . "/G4_AmbienteWeb-main/Models/CarritoModel.php";
 
 if (session_status() === PHP_SESSION_NONE) {
 	session_start();

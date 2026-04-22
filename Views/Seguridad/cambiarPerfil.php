@@ -1,6 +1,6 @@
 <?php
-include_once $_SERVER["DOCUMENT_ROOT"] . "/G4_AmbienteWeb/Views/layout.php";
-include_once $_SERVER["DOCUMENT_ROOT"] . "/G4_AmbienteWeb/Controllers/SeguridadController.php";
+include_once $_SERVER["DOCUMENT_ROOT"] . "/G4_AmbienteWeb-main/Views/layout.php";
+include_once $_SERVER["DOCUMENT_ROOT"] . "/G4_AmbienteWeb-main/Controllers/SeguridadController.php";
 
 $datosUsuario = ConsultarUsuario();
 ?>

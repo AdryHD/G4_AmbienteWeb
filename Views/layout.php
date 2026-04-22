@@ -8,7 +8,7 @@ if (empty($_SESSION['usuario_logueado'])) {
     exit;
 }
 
-include_once $_SERVER["DOCUMENT_ROOT"] . "/G4_AmbienteWeb/Models/CarritoModel.php";
+include_once $_SERVER["DOCUMENT_ROOT"] . "/G4_AmbienteWeb-main/Models/CarritoModel.php";
 
 function obtenerColorEstado($estado) {
     $estado = strtolower(trim($estado));

@@ -1,5 +1,5 @@
 <?php
-include_once $_SERVER["DOCUMENT_ROOT"] . "/G4_AmbienteWeb/Controllers/AdminController.php";
+include_once $_SERVER["DOCUMENT_ROOT"] . "/G4_AmbienteWeb-main/Controllers/AdminController.php";
 
 // Verificar que es administrador
 ValidarAccesoAdmin();
@@ -59,7 +59,7 @@ $usuarios = ListarUsuarios();
 </head>
 <body class="d-flex flex-column min-vh-100">
     <!-- Header -->
-    <?php include $_SERVER["DOCUMENT_ROOT"] . "/G4_AmbienteWeb/Views/layout.php"; ?>
+    <?php include $_SERVER["DOCUMENT_ROOT"] . "/G4_AmbienteWeb-main/Views/layout.php"; ?>
 
     <!-- Admin Header -->
     <div class="admin-header text-center">
@@ -223,9 +223,9 @@ $usuarios = ListarUsuarios();
     </div>
 
     <!-- Footer -->
-    <?php include $_SERVER["DOCUMENT_ROOT"] . "/G4_AmbienteWeb/Views/layout.php"; ?>
+    <?php include $_SERVER["DOCUMENT_ROOT"] . "/G4_AmbienteWeb-main/Views/layout.php"; ?>
 
-    <script src="/G4_AmbienteWeb/Views/assets/jss/bootstrap.bundle.min.js"></script>
+    <script src="/G4_AmbienteWeb-main/Views/assets/jss/bootstrap.bundle.min.js"></script>
     <script>
         // Llenar datos del modal cuando se abre
         document.getElementById('modalCambiarRol').addEventListener('show.bs.modal', function (e) {
